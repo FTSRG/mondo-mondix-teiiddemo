@@ -1,0 +1,6 @@
+Teiid IQD esettanulmányhoz használt KPI:
+
+- A felhasználók lezárt ticketeinek / issue-inak száma.
+Kiterjesztett változat:
+	- A felhasználók egy adott napon lezárt ticketeinek / issue-inak száma.
+

@@ -7,7 +7,7 @@
   <transformation:TransformationContainer xmi:uuid="mmuuid:375b03b0-1f3e-41e0-ab84-122a00e478c5">
     <transformationMappings xsi:type="transformation:SqlTransformationMappingRoot" xmi:uuid="mmuuid:fad57f21-6953-4168-adc4-8cb7f58cf94a" outputs="mmuuid/9851d5ec-9b8d-4b58-8c25-a72db7983a48" target="mmuuid/9851d5ec-9b8d-4b58-8c25-a72db7983a48">
       <helper xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:2eb081ad-f07e-4ab9-a999-91f902d7509e">
-        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:68f2c477-d43f-4ada-8a68-7494cbf2cb12" selectSql="SELECT&#xa;&#x9;&#x9;i.id AS issue_id, u.id AS user_id&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.users AS u, RedmineDB.issues AS i&#xa;&#x9;WHERE&#xa;&#x9;&#x9;i.assigned_to_id = u.id"/>
+        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:68f2c477-d43f-4ada-8a68-7494cbf2cb12" selectSql="SELECT&#xa;&#x9;&#x9;u.id AS user_id, i.id AS issue_id&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.users AS u LEFT OUTER JOIN RedmineDB.issues AS i ON u.id = i.assigned_to_id&#xa;&#x9;ORDER BY u.id"/>
         <aliases xmi:uuid="mmuuid:0b4450fc-f6a3-48f8-974d-e06f34c46db6" alias="i">
           <aliasedObject href="../RedmineDB.xmi#mmuuid/f74a2ee6-7dcd-4596-9835-02515a2d877d"/>
         </aliases>
@@ -26,26 +26,22 @@
     </transformationMappings>
     <transformationMappings xsi:type="transformation:SqlTransformationMappingRoot" xmi:uuid="mmuuid:16a41782-aa69-4ee4-bd47-d29fb14dd8a6" outputs="mmuuid/d049bf8a-8136-42c7-b71b-5618f4298e70" target="mmuuid/d049bf8a-8136-42c7-b71b-5618f4298e70">
       <helper xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:f51a3f30-3c6e-4990-b782-cdafdf66b450">
-        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:d0403241-0456-44ff-8c45-a90cb8363dbb" selectSql="SELECT&#xa;&#x9;&#x9;j.journalized_id AS issue_id, j.user_id&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.journals AS j, RedmineDB.journal_details AS jd&#xa;&#x9;WHERE&#xa;&#x9;&#x9;(j.id = jd.journal_id) AND (j.journalized_type = 'Issue') AND (jd.prop_key = 'status_id') AND (cast(jd.&quot;value&quot; AS integer) IN (SELECT st.id AS status_id FROM RedmineDB.issue_statuses AS st WHERE CASE WHEN st.is_closed THEN 1 ELSE 0 END = 1))" updateSql=""/>
+        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:d0403241-0456-44ff-8c45-a90cb8363dbb" selectSql="SELECT&#xa;&#x9;&#x9;j.id AS activity_id, j.journalized_id AS issue_id&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.journals AS j INNER JOIN RedmineDB.journal_details AS jd ON j.id = jd.journal_id&#xa;&#x9;WHERE&#xa;&#x9;&#x9;(j.journalized_type = 'Issue') AND (jd.prop_key = 'status_id')&#xa;&#x9;ORDER BY activity_id" updateSql=""/>
         <aliases xmi:uuid="mmuuid:36d612d8-a5f1-4c50-9bc1-163109940c34" alias="j">
           <aliasedObject href="../RedmineDB.xmi#mmuuid/2de56d07-3c13-443a-85c6-9e730ddbc768"/>
         </aliases>
-        <aliases xmi:uuid="mmuuid:5ab77d0d-f0d9-41ce-8366-17cf0de3a6bc" alias="jd">
+        <aliases xmi:uuid="mmuuid:15ae2a95-a73d-4177-b237-495d58e525a3" alias="jd">
           <aliasedObject href="../RedmineDB.xmi#mmuuid/fcf4384c-3cd9-450a-8e39-7b0531592843"/>
-        </aliases>
-        <aliases xmi:uuid="mmuuid:c75e5b78-41eb-4c12-ac27-5a0ba4837269" alias="st">
-          <aliasedObject href="../RedmineDB.xmi#mmuuid/36fab755-acdb-46d0-9391-7ebc35cf32a9"/>
         </aliases>
       </helper>
       <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:058888e5-dade-450b-9439-c604ac9012b4" outputs="mmuuid/a8e478d0-22ae-41cb-837a-b2f7109dc1e3">
-        <inputs href="../RedmineDB.xmi#mmuuid/64f5f8a2-731a-4c43-b1c4-1488827145d1"/>
+        <inputs href="../RedmineDB.xmi#mmuuid/cf50937a-213b-40c0-8f2c-2a3ca06c15c6"/>
       </nested>
       <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:0c328693-c50d-4557-9d96-59aa0b10a8d3" outputs="mmuuid/d8254deb-bbcf-412c-88b8-342bf1b42025">
-        <inputs href="../RedmineDB.xmi#mmuuid/ae95d015-2222-43d4-8e11-c77026121923"/>
+        <inputs href="../RedmineDB.xmi#mmuuid/64f5f8a2-731a-4c43-b1c4-1488827145d1"/>
       </nested>
       <inputs href="../RedmineDB.xmi#mmuuid/2de56d07-3c13-443a-85c6-9e730ddbc768"/>
       <inputs href="../RedmineDB.xmi#mmuuid/fcf4384c-3cd9-450a-8e39-7b0531592843"/>
-      <inputs href="../RedmineDB.xmi#mmuuid/36fab755-acdb-46d0-9391-7ebc35cf32a9"/>
     </transformationMappings>
     <transformationMappings xsi:type="transformation:SqlTransformationMappingRoot" xmi:uuid="mmuuid:8513260a-c559-44d9-8741-202648c5cb95" outputs="mmuuid/f6be9d32-3f7c-4221-be07-7903d11a3805" target="mmuuid/f6be9d32-3f7c-4221-be07-7903d11a3805">
       <helper xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:387b33e5-9daa-4f09-a035-fd3609d8bcdd">
@@ -61,8 +57,8 @@
     </transformationMappings>
     <transformationMappings xsi:type="transformation:SqlTransformationMappingRoot" xmi:uuid="mmuuid:58ea7375-06c0-4951-af74-05f32a540a19" outputs="mmuuid/bb36d643-ed90-4a70-91e2-27db4c19ecc9" target="mmuuid/bb36d643-ed90-4a70-91e2-27db4c19ecc9">
       <helper xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:4480f33d-4519-4c39-a5ba-a9020a17d7fa">
-        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:b6c7491c-c4c2-4647-9730-c9c12dd0df2b" selectSql="SELECT&#xa;&#x9;&#x9;RedmineDB.users.id, RedmineDB.users.login&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.users"/>
-        <aliases xmi:uuid="mmuuid:92d479e5-af36-4936-b1d9-3f39ac47d733" alias="users">
+        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:b6c7491c-c4c2-4647-9730-c9c12dd0df2b" selectSql="SELECT&#xa;&#x9;&#x9;u.id, u.login&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.users AS u&#xa;&#x9;ORDER BY u.id"/>
+        <aliases xmi:uuid="mmuuid:3f6dd3b9-8ab2-4522-a41b-e4d4cbe1f57f" alias="u">
           <aliasedObject href="../RedmineDB.xmi#mmuuid/672b6fdb-5aa6-4fb9-bb57-5baefa89f121"/>
         </aliases>
       </helper>
@@ -88,6 +84,40 @@
         <inputs href="../RedmineDB.xmi#mmuuid/0f8e2058-85af-48cd-a86a-6715953a477c"/>
       </nested>
       <inputs href="../RedmineDB.xmi#mmuuid/f74a2ee6-7dcd-4596-9835-02515a2d877d"/>
+    </transformationMappings>
+    <transformationMappings xsi:type="transformation:SqlTransformationMappingRoot" xmi:uuid="mmuuid:74a7f4fa-6f71-4f2e-a5a4-1576ad4b8225" outputs="mmuuid/75896975-36da-4156-b319-17d410df9890" target="mmuuid/75896975-36da-4156-b319-17d410df9890">
+      <helper xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:f8cc6c3b-f7dc-489c-8380-d16395cf4caf">
+        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:c6d042bd-0b49-48db-b537-e76251c42782" selectSql="SELECT&#xa;&#x9;&#x9;j.user_id AS user_id, j.id AS activity_id&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.journals AS j&#xa;&#x9;ORDER BY user_id"/>
+        <aliases xmi:uuid="mmuuid:461b6720-fee3-4fcf-a75e-dabf0e73e911" alias="j">
+          <aliasedObject href="../RedmineDB.xmi#mmuuid/2de56d07-3c13-443a-85c6-9e730ddbc768"/>
+        </aliases>
+      </helper>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:241d758a-dcf8-4aed-aee8-50a936c87ff8" outputs="mmuuid/3f670f4b-6c6b-477e-897a-ef6e0b97d345">
+        <inputs href="../RedmineDB.xmi#mmuuid/ae95d015-2222-43d4-8e11-c77026121923"/>
+      </nested>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:11654dfb-5bf3-4c52-84ea-9439f1cd5ed1" outputs="mmuuid/f860a637-7c65-4b21-9ad1-65e1f494623e">
+        <inputs href="../RedmineDB.xmi#mmuuid/cf50937a-213b-40c0-8f2c-2a3ca06c15c6"/>
+      </nested>
+      <inputs href="../RedmineDB.xmi#mmuuid/2de56d07-3c13-443a-85c6-9e730ddbc768"/>
+    </transformationMappings>
+    <transformationMappings xsi:type="transformation:SqlTransformationMappingRoot" xmi:uuid="mmuuid:44685a98-fc78-4e0c-8c9b-61b3f0c964aa" outputs="mmuuid/12f94e66-700d-41c0-bbb6-c5b5dba880dc" target="mmuuid/12f94e66-700d-41c0-bbb6-c5b5dba880dc">
+      <helper xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:2d6453eb-d56a-49df-87ee-2c6d7d125f5a">
+        <nested xsi:type="transformation:SqlTransformation" xmi:uuid="mmuuid:d1e2bb8f-e6fa-4f08-a76e-321a36ae07e2" selectSql="SELECT&#xa;&#x9;&#x9;j.id AS activity_id, cast(jd.&quot;value&quot; AS integer) AS activity_value&#xa;&#x9;FROM&#xa;&#x9;&#x9;RedmineDB.journals AS j INNER JOIN RedmineDB.journal_details AS jd ON j.id = jd.journal_id&#xa;&#x9;WHERE&#xa;&#x9;&#x9;(j.journalized_type = 'Issue') AND (jd.prop_key = 'status_id')&#xa;&#x9;ORDER BY activity_id"/>
+        <aliases xmi:uuid="mmuuid:bbe1fbec-cf22-4882-9089-a587cd32ff11" alias="j">
+          <aliasedObject href="../RedmineDB.xmi#mmuuid/2de56d07-3c13-443a-85c6-9e730ddbc768"/>
+        </aliases>
+        <aliases xmi:uuid="mmuuid:2806f8d9-5fc4-494d-8edb-8e13ba6585f0" alias="jd">
+          <aliasedObject href="../RedmineDB.xmi#mmuuid/fcf4384c-3cd9-450a-8e39-7b0531592843"/>
+        </aliases>
+      </helper>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:3664b8ef-8ced-4f3a-9c89-1a368486e636" outputs="mmuuid/2fc1ad91-3391-4646-9672-878b79f117b5">
+        <inputs href="../RedmineDB.xmi#mmuuid/cf50937a-213b-40c0-8f2c-2a3ca06c15c6"/>
+      </nested>
+      <nested xsi:type="transformation:TransformationMapping" xmi:uuid="mmuuid:ce985144-10f1-4155-abcf-06fdf60e880f" outputs="mmuuid/df0ff7c0-5330-43e9-a593-e7e2e4bfc5a2">
+        <inputs href="../RedmineDB.xmi#mmuuid/2f93869e-3a0c-4fed-be36-9edd36ec058e"/>
+      </nested>
+      <inputs href="../RedmineDB.xmi#mmuuid/2de56d07-3c13-443a-85c6-9e730ddbc768"/>
+      <inputs href="../RedmineDB.xmi#mmuuid/fcf4384c-3cd9-450a-8e39-7b0531592843"/>
     </transformationMappings>
   </transformation:TransformationContainer>
   <mmcore:AnnotationContainer xmi:uuid="mmuuid:497663f1-971b-4955-8bec-6d5fc4acd168">
@@ -533,28 +563,30 @@
   </mmcore:AnnotationContainer>
   <diagram:DiagramContainer xmi:uuid="mmuuid:b8e9fca0-3aa5-47ed-bccb-5b7265a86253">
     <diagram xmi:uuid="mmuuid:a3622e5f-fe47-417f-b789-fda44dd17b99" type="packageDiagramType" target="mmuuid/c3e66aec-9fbc-4850-aa39-3e4ef49be957">
-      <diagramEntity xmi:uuid="mmuuid:e03897de-5253-46bf-a544-f9b7624a6869" name="IssueAssignedTo" modelObject="mmuuid/9851d5ec-9b8d-4b58-8c25-a72db7983a48" xPosition="40" yPosition="30"/>
-      <diagramEntity xmi:uuid="mmuuid:d943657a-8f79-4777-bccc-c3b4deddcd13" name="IssueClosedBy" modelObject="mmuuid/d049bf8a-8136-42c7-b71b-5618f4298e70" xPosition="41" yPosition="175"/>
-      <diagramEntity xmi:uuid="mmuuid:8b5879a5-a8df-4a8b-8fa7-d60df53b1067" modelObject="mmuuid/f6be9d32-3f7c-4221-be07-7903d11a3805" xPosition="273" yPosition="36"/>
-      <diagramEntity xmi:uuid="mmuuid:8eee7839-3046-46b1-b2eb-4cc980b4a72c" modelObject="mmuuid/bb36d643-ed90-4a70-91e2-27db4c19ecc9" xPosition="276" yPosition="173"/>
-      <diagramEntity xmi:uuid="mmuuid:c3256ddc-cdc9-4ba6-b330-d6f9ebffed88" modelObject="mmuuid/3d2e1e7f-9531-41b2-a20e-9409de2ac6a0" xPosition="41" yPosition="319"/>
+      <diagramEntity xmi:uuid="mmuuid:e03897de-5253-46bf-a544-f9b7624a6869" name="UserAssignedIssues" modelObject="mmuuid/9851d5ec-9b8d-4b58-8c25-a72db7983a48" xPosition="16" yPosition="355"/>
+      <diagramEntity xmi:uuid="mmuuid:d943657a-8f79-4777-bccc-c3b4deddcd13" name="UserClosedIssues" modelObject="mmuuid/d049bf8a-8136-42c7-b71b-5618f4298e70" xPosition="408" yPosition="18"/>
+      <diagramEntity xmi:uuid="mmuuid:8b5879a5-a8df-4a8b-8fa7-d60df53b1067" modelObject="mmuuid/f6be9d32-3f7c-4221-be07-7903d11a3805" xPosition="679" yPosition="163"/>
+      <diagramEntity xmi:uuid="mmuuid:8eee7839-3046-46b1-b2eb-4cc980b4a72c" modelObject="mmuuid/bb36d643-ed90-4a70-91e2-27db4c19ecc9" xPosition="15" yPosition="14"/>
+      <diagramEntity xmi:uuid="mmuuid:c3256ddc-cdc9-4ba6-b330-d6f9ebffed88" modelObject="mmuuid/3d2e1e7f-9531-41b2-a20e-9409de2ac6a0" xPosition="228" yPosition="357"/>
+      <diagramEntity xmi:uuid="mmuuid:126838d6-02ad-4b57-bfb4-2609d9e6da8c" modelObject="mmuuid/75896975-36da-4156-b319-17d410df9890" xPosition="221" yPosition="16"/>
+      <diagramEntity xmi:uuid="mmuuid:33638af4-9b67-44a6-88e8-ab193fd5b1a9" modelObject="mmuuid/12f94e66-700d-41c0-bbb6-c5b5dba880dc" xPosition="410" yPosition="160"/>
     </diagram>
   </diagram:DiagramContainer>
-  <relational:BaseTable xmi:uuid="mmuuid:9851d5ec-9b8d-4b58-8c25-a72db7983a48" name="IssueAssignedTo">
-    <columns xmi:uuid="mmuuid:78f50944-b9eb-4061-9038-f51b9350d448" name="issue_id" length="4000" precision="1" radix="0">
+  <relational:BaseTable xmi:uuid="mmuuid:9851d5ec-9b8d-4b58-8c25-a72db7983a48" name="UserAssignedIssues">
+    <columns xmi:uuid="mmuuid:29a3b98d-fe23-4a18-a266-239b8e7d797f" name="user_id" length="4000" precision="1" nullable="NO_NULLS" radix="0">
       <nativeType xsi:nil="true"/>
       <type href="http://www.w3.org/2001/XMLSchema#int"/>
     </columns>
-    <columns xmi:uuid="mmuuid:29a3b98d-fe23-4a18-a266-239b8e7d797f" name="user_id" length="4000" precision="1" radix="0">
+    <columns xmi:uuid="mmuuid:78f50944-b9eb-4061-9038-f51b9350d448" name="issue_id" length="4000" precision="1" nullable="NULLABLE_UNKNOWN" radix="0">
       <nativeType xsi:nil="true"/>
       <type href="http://www.w3.org/2001/XMLSchema#int"/>
     </columns>
   </relational:BaseTable>
-  <relational:BaseTable xmi:uuid="mmuuid:d049bf8a-8136-42c7-b71b-5618f4298e70" name="IssueClosedBy">
-    <columns xmi:uuid="mmuuid:a8e478d0-22ae-41cb-837a-b2f7109dc1e3" name="issue_id" nativeType="int4" length="4000" precision="10" radix="0">
+  <relational:BaseTable xmi:uuid="mmuuid:d049bf8a-8136-42c7-b71b-5618f4298e70" name="IssueStatusActivity">
+    <columns xmi:uuid="mmuuid:a8e478d0-22ae-41cb-837a-b2f7109dc1e3" name="activity_id" nativeType="int4" length="4000" precision="10" nullable="NO_NULLS" radix="0">
       <type href="http://www.w3.org/2001/XMLSchema#int"/>
     </columns>
-    <columns xmi:uuid="mmuuid:d8254deb-bbcf-412c-88b8-342bf1b42025" name="user_id" nativeType="int4" length="4000" precision="10" radix="0">
+    <columns xmi:uuid="mmuuid:d8254deb-bbcf-412c-88b8-342bf1b42025" name="issue_id" nativeType="int4" length="4000" precision="10" nullable="NO_NULLS" radix="0">
       <type href="http://www.w3.org/2001/XMLSchema#int"/>
     </columns>
   </relational:BaseTable>
@@ -573,12 +605,28 @@
     </columns>
   </relational:BaseTable>
   <relational:BaseTable xmi:uuid="mmuuid:3d2e1e7f-9531-41b2-a20e-9409de2ac6a0" name="IssueSubject">
-    <columns xmi:uuid="mmuuid:5a2a20f5-6fd2-4c67-9aa5-fc51ad5f1797" name="id" nativeType="int4" length="4000" precision="10" radix="0">
+    <columns xmi:uuid="mmuuid:5a2a20f5-6fd2-4c67-9aa5-fc51ad5f1797" name="id" nativeType="int4" length="4000" precision="10" nullable="NO_NULLS" radix="0">
       <type href="http://www.w3.org/2001/XMLSchema#int"/>
     </columns>
-    <columns xmi:uuid="mmuuid:5424d9ef-d4af-4689-a25e-fe789170bfe6" name="subject" length="4000" radix="0">
+    <columns xmi:uuid="mmuuid:5424d9ef-d4af-4689-a25e-fe789170bfe6" name="subject" length="4000" nullable="NO_NULLS" radix="0">
       <nativeType xsi:nil="true"/>
       <type href="http://www.w3.org/2001/XMLSchema#string"/>
+    </columns>
+  </relational:BaseTable>
+  <relational:BaseTable xmi:uuid="mmuuid:75896975-36da-4156-b319-17d410df9890" name="UserActivity">
+    <columns xmi:uuid="mmuuid:3f670f4b-6c6b-477e-897a-ef6e0b97d345" name="user_id" nativeType="int4" length="4000" precision="10" nullable="NO_NULLS" radix="0">
+      <type href="http://www.w3.org/2001/XMLSchema#int"/>
+    </columns>
+    <columns xmi:uuid="mmuuid:f860a637-7c65-4b21-9ad1-65e1f494623e" name="activity_id" nativeType="int4" length="4000" precision="10" nullable="NO_NULLS" radix="0">
+      <type href="http://www.w3.org/2001/XMLSchema#int"/>
+    </columns>
+  </relational:BaseTable>
+  <relational:BaseTable xmi:uuid="mmuuid:12f94e66-700d-41c0-bbb6-c5b5dba880dc" name="IssueStatusActivityValue">
+    <columns xmi:uuid="mmuuid:2fc1ad91-3391-4646-9672-878b79f117b5" name="activity_id" nativeType="int4" length="4000" precision="10" nullable="NO_NULLS" radix="0">
+      <type href="http://www.w3.org/2001/XMLSchema#int"/>
+    </columns>
+    <columns xmi:uuid="mmuuid:df0ff7c0-5330-43e9-a593-e7e2e4bfc5a2" name="activity_value" nativeType="int4" length="4000" precision="10" radix="0">
+      <type href="http://www.w3.org/2001/XMLSchema#int"/>
     </columns>
   </relational:BaseTable>
 </xmi:XMI>
