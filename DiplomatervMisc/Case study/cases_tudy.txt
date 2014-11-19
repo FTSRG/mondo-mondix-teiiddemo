@@ -1,6 +1,6 @@
 Teiid (IQD) Mondix esettanulmányhoz használt KPI:
 
-- A felhasználók lezárt ticketeinek / issue-inak száma.
-Kiterjesztett változat:
-	- A felhasználók egy adott napon lezárt ticketeinek / issue-inak száma.
+- A felhasználók által lezárt ticket-ek / issue-k száma.
 
+Kiterjesztett változat:
+	- A felhasználók által egy adott napon lezárt ticketek / issue-k száma.
