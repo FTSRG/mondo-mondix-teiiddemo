@@ -1,25 +1,22 @@
 ﻿-- Add procedural language to database
 CREATE OR REPLACE PROCEDURAL LANGUAGE 'plpythonu' HANDLER plpython_call_handler;
 
--- DROP teiid_notify_change function, if already exists
-DROP FUNCTION IF EXISTS teiid_notify_change(
-	dsName text,
-	tableName text,
-	changeId text,
-	changeType text);
+-- DROP mondix_perform_binary_insert function, if already exists
+DROP FUNCTION IF EXISTS mondix_perform_binary_insert (
+	relationName text,
+	column1 text,
+	column2 text);
 
--- Define teiid_notify_change function
-CREATE OR REPLACE FUNCTION teiid_notify_change(
-	dsName text,
-	tableName text,
-	changeId text,
-	changeType text) RETURNS text AS
+-- Define teiid_perform_binary_insert function
+CREATE OR REPLACE FUNCTION mondix_perform_binary_insert (
+	relationName text,
+	column1 text,
+	column2 text) RETURNS text AS
 $$
 
-dsName = args[0]
-tableName = args[1]
-changeId = args[2]
-changeType = args[3]
+relationName = args[0]
+column1 = args[1]
+column2 = args[2]
 
 import sys
 import os
@@ -28,7 +25,7 @@ from sys import path
 
 path.append(os.environ['TEIID_CHANGE_HOME'])
 
-from teiid_change_interface import TeiidChangeService
+from mondix_change_interface import MondixTeiidChangeService
 from thrift import Thrift
 from thrift.transport import TSocket
 from thrift.transport import TTransport
@@ -46,7 +43,7 @@ try:
   protocol = TBinaryProtocol.TBinaryProtocol(transport)
 
   # Create a client to use the protocol encoder
-  client = TeiidChangeService.Client(protocol)
+  client = MonixTeiidChangeService.Client(protocol)
 
   # Connect!
   transport.open()
@@ -55,7 +52,7 @@ try:
   # TODO: handle the case when server is not available:
   # - send notify that data is dirty -> perform reinicialization
   # - collect changes to a table, and send them when server is up again.
-  product = client.datasourceChanged(dsName, tableName, changeId, changeType)
+  product = client.performBinaryInsert(dsName, tableName, changeId, changeType)
 
   # Close!
   transport.close()
