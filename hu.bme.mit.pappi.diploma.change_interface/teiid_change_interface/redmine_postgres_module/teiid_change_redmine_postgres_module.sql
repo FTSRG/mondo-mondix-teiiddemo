@@ -70,37 +70,71 @@ LANGUAGE 'plpythonu';
 -- select teiid_notify_change('RedmineDS', 'TestTable', '12345', 'INSERT');
 
 -- Create trigger(s) on tables, which are relevant by the KPI(s)
-CREATE OR REPLACE FUNCTION journals_change() RETURNS trigger AS
-$journal_change$
+CREATE OR REPLACE FUNCTION ds_table_change() RETURNS trigger AS
+$ds_table_change$
 DECLARE
-	table_name text := TG_TABLE_SCHEMA || '.' || TG_TABLE_NAME;
+	table_name text := TG_TABLE_NAME;
 	change_id text := '';
-	datasource text := 'RedmineDS';
+	datasource text := 'RedmineDB';
 BEGIN
     CASE TG_OP
-        WHEN 'INSERT', 'UPDATE' THEN
+        WHEN 'INSERT' THEN
             change_id := NEW.id;
             PERFORM teiid_notify_change(datasource, table_name, change_id, TG_OP);
             RETURN NEW;
+        WHEN 'UPDATE' THEN
+	    change_id := OLD.id;
+            PERFORM teiid_notify_change(datasource, table_name, change_id, 'DELETE');
+            change_id := NEW.id;
+            PERFORM teiid_notify_change(datasource, table_name, change_id, 'INSERT');
+	    RETURN NEW;
         WHEN 'DELETE' THEN
             change_id := OLD.id;
-            PERFORM teiid_notify_change('RedmineDS', table_name, change_id, TG_OP);
+            PERFORM teiid_notify_change(datasource, table_name, change_id, TG_OP);
             RETURN OLD;
         ELSE
             RAISE EXCEPTION 'Unknown TG_OP: "%" Should not occur!', TG_OP;
     END CASE;
 END;
-$journal_change$
+$ds_table_change$
 LANGUAGE PLPGSQL;
 
+-- Create trigger on tables
+
+-- journals table
 DROP TRIGGER IF EXISTS journals_insert_trigger ON journals;
 CREATE TRIGGER journals_insert_trigger 
 AFTER INSERT ON journals
 FOR EACH ROW
-EXECUTE PROCEDURE journals_change();
+EXECUTE PROCEDURE ds_table_change();
 
 DROP TRIGGER IF EXISTS journals_update_trigger ON journals;
 CREATE TRIGGER journals_update_trigger
-AFTER UPDATE ON journals
+BEFORE UPDATE ON journals
 FOR EACH ROW 
-EXECUTE PROCEDURE journals_change();
+EXECUTE PROCEDURE ds_table_change();
+
+DROP TRIGGER IF EXISTS journals_delete_trigger ON journals;
+CREATE TRIGGER journals_delete_trigger
+AFTER DELETE ON journals
+FOR EACH ROW
+EXECUTE PROCEDURE ds_table_change();
+
+-- users table
+DROP TRIGGER IF EXISTS users_insert_trigger ON users;
+CREATE TRIGGER users_insert_trigger 
+AFTER INSERT ON users
+FOR EACH ROW
+EXECUTE PROCEDURE ds_table_change();
+
+DROP TRIGGER IF EXISTS users_update_trigger ON users;
+CREATE TRIGGER users_update_trigger
+BEFORE UPDATE ON users
+FOR EACH ROW 
+EXECUTE PROCEDURE ds_table_change();
+
+DROP TRIGGER IF EXISTS users_delete_trigger ON users;
+CREATE TRIGGER users_delete_trigger
+AFTER DELETE ON users
+FOR EACH ROW
+EXECUTE PROCEDURE ds_table_change();

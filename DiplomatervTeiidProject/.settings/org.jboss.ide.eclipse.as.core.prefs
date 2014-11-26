@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-org.jboss.ide.eclipse.as.core.singledeployable.deployableList=vdb/mongotest-vdb.xml\nRedmineExample.vdb\nDiplomaVDB.vdb\n
+org.jboss.ide.eclipse.as.core.singledeployable.deployableList=views/ManagementViews.xmi\nRedmineDB.xmi\nvdb/mongotest-vdb.xml\nDiplomaVDB.vdb\nDiplomaVDB.vdb\n

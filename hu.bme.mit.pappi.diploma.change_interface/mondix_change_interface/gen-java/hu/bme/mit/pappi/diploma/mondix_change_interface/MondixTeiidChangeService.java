@@ -36,33 +36,37 @@ public class MondixTeiidChangeService {
 
   public interface Iface {
 
-    public int performBinaryInsert(String relationName, String column1, String column2) throws org.apache.thrift.TException;
+    public int performBinaryInsert(BinaryTuple tuple) throws org.apache.thrift.TException;
 
-    public int performBinaryDelete(String relationName, String column1, String column2) throws org.apache.thrift.TException;
+    public int performBinaryDelete(BinaryTuple tuple) throws org.apache.thrift.TException;
 
-    public int performBinaryUpdate(String relationName, String old_column1, String old_column2, String new_column1, String new_column2) throws org.apache.thrift.TException;
+    public int performBinaryUpdate(BinaryTuple oldTuple, BinaryTuple newTuple) throws org.apache.thrift.TException;
 
-    public int performUnaryInsert(String relationName, String column1) throws org.apache.thrift.TException;
+    public int performUnaryInsert(UnaryTuple tuple) throws org.apache.thrift.TException;
 
-    public int performUnaryDelete(String relationName, String column1) throws org.apache.thrift.TException;
+    public int performUnaryDelete(UnaryTuple tuple) throws org.apache.thrift.TException;
 
-    public int performUnaryUpdate(String relationName, String column1) throws org.apache.thrift.TException;
+    public int performUnaryUpdate(UnaryTuple oldTuple, UnaryTuple newTuple) throws org.apache.thrift.TException;
+
+    public long getMatchesCount(String query) throws org.apache.thrift.TException;
 
   }
 
   public interface AsyncIface {
 
-    public void performBinaryInsert(String relationName, String column1, String column2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void performBinaryInsert(BinaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void performBinaryDelete(String relationName, String column1, String column2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void performBinaryDelete(BinaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void performBinaryUpdate(String relationName, String old_column1, String old_column2, String new_column1, String new_column2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void performBinaryUpdate(BinaryTuple oldTuple, BinaryTuple newTuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void performUnaryInsert(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void performUnaryInsert(UnaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void performUnaryDelete(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void performUnaryDelete(UnaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void performUnaryUpdate(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void performUnaryUpdate(UnaryTuple oldTuple, UnaryTuple newTuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void getMatchesCount(String query, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -86,18 +90,16 @@ public class MondixTeiidChangeService {
       super(iprot, oprot);
     }
 
-    public int performBinaryInsert(String relationName, String column1, String column2) throws org.apache.thrift.TException
+    public int performBinaryInsert(BinaryTuple tuple) throws org.apache.thrift.TException
     {
-      send_performBinaryInsert(relationName, column1, column2);
+      send_performBinaryInsert(tuple);
       return recv_performBinaryInsert();
     }
 
-    public void send_performBinaryInsert(String relationName, String column1, String column2) throws org.apache.thrift.TException
+    public void send_performBinaryInsert(BinaryTuple tuple) throws org.apache.thrift.TException
     {
       performBinaryInsert_args args = new performBinaryInsert_args();
-      args.setRelationName(relationName);
-      args.setColumn1(column1);
-      args.setColumn2(column2);
+      args.setTuple(tuple);
       sendBase("performBinaryInsert", args);
     }
 
@@ -111,18 +113,16 @@ public class MondixTeiidChangeService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "performBinaryInsert failed: unknown result");
     }
 
-    public int performBinaryDelete(String relationName, String column1, String column2) throws org.apache.thrift.TException
+    public int performBinaryDelete(BinaryTuple tuple) throws org.apache.thrift.TException
     {
-      send_performBinaryDelete(relationName, column1, column2);
+      send_performBinaryDelete(tuple);
       return recv_performBinaryDelete();
     }
 
-    public void send_performBinaryDelete(String relationName, String column1, String column2) throws org.apache.thrift.TException
+    public void send_performBinaryDelete(BinaryTuple tuple) throws org.apache.thrift.TException
     {
       performBinaryDelete_args args = new performBinaryDelete_args();
-      args.setRelationName(relationName);
-      args.setColumn1(column1);
-      args.setColumn2(column2);
+      args.setTuple(tuple);
       sendBase("performBinaryDelete", args);
     }
 
@@ -136,20 +136,17 @@ public class MondixTeiidChangeService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "performBinaryDelete failed: unknown result");
     }
 
-    public int performBinaryUpdate(String relationName, String old_column1, String old_column2, String new_column1, String new_column2) throws org.apache.thrift.TException
+    public int performBinaryUpdate(BinaryTuple oldTuple, BinaryTuple newTuple) throws org.apache.thrift.TException
     {
-      send_performBinaryUpdate(relationName, old_column1, old_column2, new_column1, new_column2);
+      send_performBinaryUpdate(oldTuple, newTuple);
       return recv_performBinaryUpdate();
     }
 
-    public void send_performBinaryUpdate(String relationName, String old_column1, String old_column2, String new_column1, String new_column2) throws org.apache.thrift.TException
+    public void send_performBinaryUpdate(BinaryTuple oldTuple, BinaryTuple newTuple) throws org.apache.thrift.TException
     {
       performBinaryUpdate_args args = new performBinaryUpdate_args();
-      args.setRelationName(relationName);
-      args.setOld_column1(old_column1);
-      args.setOld_column2(old_column2);
-      args.setNew_column1(new_column1);
-      args.setNew_column2(new_column2);
+      args.setOldTuple(oldTuple);
+      args.setNewTuple(newTuple);
       sendBase("performBinaryUpdate", args);
     }
 
@@ -163,17 +160,16 @@ public class MondixTeiidChangeService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "performBinaryUpdate failed: unknown result");
     }
 
-    public int performUnaryInsert(String relationName, String column1) throws org.apache.thrift.TException
+    public int performUnaryInsert(UnaryTuple tuple) throws org.apache.thrift.TException
     {
-      send_performUnaryInsert(relationName, column1);
+      send_performUnaryInsert(tuple);
       return recv_performUnaryInsert();
     }
 
-    public void send_performUnaryInsert(String relationName, String column1) throws org.apache.thrift.TException
+    public void send_performUnaryInsert(UnaryTuple tuple) throws org.apache.thrift.TException
     {
       performUnaryInsert_args args = new performUnaryInsert_args();
-      args.setRelationName(relationName);
-      args.setColumn1(column1);
+      args.setTuple(tuple);
       sendBase("performUnaryInsert", args);
     }
 
@@ -187,17 +183,16 @@ public class MondixTeiidChangeService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "performUnaryInsert failed: unknown result");
     }
 
-    public int performUnaryDelete(String relationName, String column1) throws org.apache.thrift.TException
+    public int performUnaryDelete(UnaryTuple tuple) throws org.apache.thrift.TException
     {
-      send_performUnaryDelete(relationName, column1);
+      send_performUnaryDelete(tuple);
       return recv_performUnaryDelete();
     }
 
-    public void send_performUnaryDelete(String relationName, String column1) throws org.apache.thrift.TException
+    public void send_performUnaryDelete(UnaryTuple tuple) throws org.apache.thrift.TException
     {
       performUnaryDelete_args args = new performUnaryDelete_args();
-      args.setRelationName(relationName);
-      args.setColumn1(column1);
+      args.setTuple(tuple);
       sendBase("performUnaryDelete", args);
     }
 
@@ -211,17 +206,17 @@ public class MondixTeiidChangeService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "performUnaryDelete failed: unknown result");
     }
 
-    public int performUnaryUpdate(String relationName, String column1) throws org.apache.thrift.TException
+    public int performUnaryUpdate(UnaryTuple oldTuple, UnaryTuple newTuple) throws org.apache.thrift.TException
     {
-      send_performUnaryUpdate(relationName, column1);
+      send_performUnaryUpdate(oldTuple, newTuple);
       return recv_performUnaryUpdate();
     }
 
-    public void send_performUnaryUpdate(String relationName, String column1) throws org.apache.thrift.TException
+    public void send_performUnaryUpdate(UnaryTuple oldTuple, UnaryTuple newTuple) throws org.apache.thrift.TException
     {
       performUnaryUpdate_args args = new performUnaryUpdate_args();
-      args.setRelationName(relationName);
-      args.setColumn1(column1);
+      args.setOldTuple(oldTuple);
+      args.setNewTuple(newTuple);
       sendBase("performUnaryUpdate", args);
     }
 
@@ -233,6 +228,29 @@ public class MondixTeiidChangeService {
         return result.success;
       }
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "performUnaryUpdate failed: unknown result");
+    }
+
+    public long getMatchesCount(String query) throws org.apache.thrift.TException
+    {
+      send_getMatchesCount(query);
+      return recv_getMatchesCount();
+    }
+
+    public void send_getMatchesCount(String query) throws org.apache.thrift.TException
+    {
+      getMatchesCount_args args = new getMatchesCount_args();
+      args.setQuery(query);
+      sendBase("getMatchesCount", args);
+    }
+
+    public long recv_getMatchesCount() throws org.apache.thrift.TException
+    {
+      getMatchesCount_result result = new getMatchesCount_result();
+      receiveBase(result, "getMatchesCount");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getMatchesCount failed: unknown result");
     }
 
   }
@@ -253,30 +271,24 @@ public class MondixTeiidChangeService {
       super(protocolFactory, clientManager, transport);
     }
 
-    public void performBinaryInsert(String relationName, String column1, String column2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void performBinaryInsert(BinaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      performBinaryInsert_call method_call = new performBinaryInsert_call(relationName, column1, column2, resultHandler, this, ___protocolFactory, ___transport);
+      performBinaryInsert_call method_call = new performBinaryInsert_call(tuple, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class performBinaryInsert_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String relationName;
-      private String column1;
-      private String column2;
-      public performBinaryInsert_call(String relationName, String column1, String column2, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private BinaryTuple tuple;
+      public performBinaryInsert_call(BinaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.relationName = relationName;
-        this.column1 = column1;
-        this.column2 = column2;
+        this.tuple = tuple;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("performBinaryInsert", org.apache.thrift.protocol.TMessageType.CALL, 0));
         performBinaryInsert_args args = new performBinaryInsert_args();
-        args.setRelationName(relationName);
-        args.setColumn1(column1);
-        args.setColumn2(column2);
+        args.setTuple(tuple);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -291,30 +303,24 @@ public class MondixTeiidChangeService {
       }
     }
 
-    public void performBinaryDelete(String relationName, String column1, String column2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void performBinaryDelete(BinaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      performBinaryDelete_call method_call = new performBinaryDelete_call(relationName, column1, column2, resultHandler, this, ___protocolFactory, ___transport);
+      performBinaryDelete_call method_call = new performBinaryDelete_call(tuple, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class performBinaryDelete_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String relationName;
-      private String column1;
-      private String column2;
-      public performBinaryDelete_call(String relationName, String column1, String column2, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private BinaryTuple tuple;
+      public performBinaryDelete_call(BinaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.relationName = relationName;
-        this.column1 = column1;
-        this.column2 = column2;
+        this.tuple = tuple;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("performBinaryDelete", org.apache.thrift.protocol.TMessageType.CALL, 0));
         performBinaryDelete_args args = new performBinaryDelete_args();
-        args.setRelationName(relationName);
-        args.setColumn1(column1);
-        args.setColumn2(column2);
+        args.setTuple(tuple);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -329,36 +335,27 @@ public class MondixTeiidChangeService {
       }
     }
 
-    public void performBinaryUpdate(String relationName, String old_column1, String old_column2, String new_column1, String new_column2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void performBinaryUpdate(BinaryTuple oldTuple, BinaryTuple newTuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      performBinaryUpdate_call method_call = new performBinaryUpdate_call(relationName, old_column1, old_column2, new_column1, new_column2, resultHandler, this, ___protocolFactory, ___transport);
+      performBinaryUpdate_call method_call = new performBinaryUpdate_call(oldTuple, newTuple, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class performBinaryUpdate_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String relationName;
-      private String old_column1;
-      private String old_column2;
-      private String new_column1;
-      private String new_column2;
-      public performBinaryUpdate_call(String relationName, String old_column1, String old_column2, String new_column1, String new_column2, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private BinaryTuple oldTuple;
+      private BinaryTuple newTuple;
+      public performBinaryUpdate_call(BinaryTuple oldTuple, BinaryTuple newTuple, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.relationName = relationName;
-        this.old_column1 = old_column1;
-        this.old_column2 = old_column2;
-        this.new_column1 = new_column1;
-        this.new_column2 = new_column2;
+        this.oldTuple = oldTuple;
+        this.newTuple = newTuple;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("performBinaryUpdate", org.apache.thrift.protocol.TMessageType.CALL, 0));
         performBinaryUpdate_args args = new performBinaryUpdate_args();
-        args.setRelationName(relationName);
-        args.setOld_column1(old_column1);
-        args.setOld_column2(old_column2);
-        args.setNew_column1(new_column1);
-        args.setNew_column2(new_column2);
+        args.setOldTuple(oldTuple);
+        args.setNewTuple(newTuple);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -373,27 +370,24 @@ public class MondixTeiidChangeService {
       }
     }
 
-    public void performUnaryInsert(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void performUnaryInsert(UnaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      performUnaryInsert_call method_call = new performUnaryInsert_call(relationName, column1, resultHandler, this, ___protocolFactory, ___transport);
+      performUnaryInsert_call method_call = new performUnaryInsert_call(tuple, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class performUnaryInsert_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String relationName;
-      private String column1;
-      public performUnaryInsert_call(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private UnaryTuple tuple;
+      public performUnaryInsert_call(UnaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.relationName = relationName;
-        this.column1 = column1;
+        this.tuple = tuple;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("performUnaryInsert", org.apache.thrift.protocol.TMessageType.CALL, 0));
         performUnaryInsert_args args = new performUnaryInsert_args();
-        args.setRelationName(relationName);
-        args.setColumn1(column1);
+        args.setTuple(tuple);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -408,27 +402,24 @@ public class MondixTeiidChangeService {
       }
     }
 
-    public void performUnaryDelete(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void performUnaryDelete(UnaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      performUnaryDelete_call method_call = new performUnaryDelete_call(relationName, column1, resultHandler, this, ___protocolFactory, ___transport);
+      performUnaryDelete_call method_call = new performUnaryDelete_call(tuple, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class performUnaryDelete_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String relationName;
-      private String column1;
-      public performUnaryDelete_call(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private UnaryTuple tuple;
+      public performUnaryDelete_call(UnaryTuple tuple, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.relationName = relationName;
-        this.column1 = column1;
+        this.tuple = tuple;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("performUnaryDelete", org.apache.thrift.protocol.TMessageType.CALL, 0));
         performUnaryDelete_args args = new performUnaryDelete_args();
-        args.setRelationName(relationName);
-        args.setColumn1(column1);
+        args.setTuple(tuple);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -443,27 +434,27 @@ public class MondixTeiidChangeService {
       }
     }
 
-    public void performUnaryUpdate(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void performUnaryUpdate(UnaryTuple oldTuple, UnaryTuple newTuple, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      performUnaryUpdate_call method_call = new performUnaryUpdate_call(relationName, column1, resultHandler, this, ___protocolFactory, ___transport);
+      performUnaryUpdate_call method_call = new performUnaryUpdate_call(oldTuple, newTuple, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class performUnaryUpdate_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private String relationName;
-      private String column1;
-      public performUnaryUpdate_call(String relationName, String column1, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private UnaryTuple oldTuple;
+      private UnaryTuple newTuple;
+      public performUnaryUpdate_call(UnaryTuple oldTuple, UnaryTuple newTuple, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.relationName = relationName;
-        this.column1 = column1;
+        this.oldTuple = oldTuple;
+        this.newTuple = newTuple;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("performUnaryUpdate", org.apache.thrift.protocol.TMessageType.CALL, 0));
         performUnaryUpdate_args args = new performUnaryUpdate_args();
-        args.setRelationName(relationName);
-        args.setColumn1(column1);
+        args.setOldTuple(oldTuple);
+        args.setNewTuple(newTuple);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -475,6 +466,38 @@ public class MondixTeiidChangeService {
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
         org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
         return (new Client(prot)).recv_performUnaryUpdate();
+      }
+    }
+
+    public void getMatchesCount(String query, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      getMatchesCount_call method_call = new getMatchesCount_call(query, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class getMatchesCount_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private String query;
+      public getMatchesCount_call(String query, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.query = query;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("getMatchesCount", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        getMatchesCount_args args = new getMatchesCount_args();
+        args.setQuery(query);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public long getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_getMatchesCount();
       }
     }
 
@@ -497,6 +520,7 @@ public class MondixTeiidChangeService {
       processMap.put("performUnaryInsert", new performUnaryInsert());
       processMap.put("performUnaryDelete", new performUnaryDelete());
       processMap.put("performUnaryUpdate", new performUnaryUpdate());
+      processMap.put("getMatchesCount", new getMatchesCount());
       return processMap;
     }
 
@@ -515,7 +539,7 @@ public class MondixTeiidChangeService {
 
       public performBinaryInsert_result getResult(I iface, performBinaryInsert_args args) throws org.apache.thrift.TException {
         performBinaryInsert_result result = new performBinaryInsert_result();
-        result.success = iface.performBinaryInsert(args.relationName, args.column1, args.column2);
+        result.success = iface.performBinaryInsert(args.tuple);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -536,7 +560,7 @@ public class MondixTeiidChangeService {
 
       public performBinaryDelete_result getResult(I iface, performBinaryDelete_args args) throws org.apache.thrift.TException {
         performBinaryDelete_result result = new performBinaryDelete_result();
-        result.success = iface.performBinaryDelete(args.relationName, args.column1, args.column2);
+        result.success = iface.performBinaryDelete(args.tuple);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -557,7 +581,7 @@ public class MondixTeiidChangeService {
 
       public performBinaryUpdate_result getResult(I iface, performBinaryUpdate_args args) throws org.apache.thrift.TException {
         performBinaryUpdate_result result = new performBinaryUpdate_result();
-        result.success = iface.performBinaryUpdate(args.relationName, args.old_column1, args.old_column2, args.new_column1, args.new_column2);
+        result.success = iface.performBinaryUpdate(args.oldTuple, args.newTuple);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -578,7 +602,7 @@ public class MondixTeiidChangeService {
 
       public performUnaryInsert_result getResult(I iface, performUnaryInsert_args args) throws org.apache.thrift.TException {
         performUnaryInsert_result result = new performUnaryInsert_result();
-        result.success = iface.performUnaryInsert(args.relationName, args.column1);
+        result.success = iface.performUnaryInsert(args.tuple);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -599,7 +623,7 @@ public class MondixTeiidChangeService {
 
       public performUnaryDelete_result getResult(I iface, performUnaryDelete_args args) throws org.apache.thrift.TException {
         performUnaryDelete_result result = new performUnaryDelete_result();
-        result.success = iface.performUnaryDelete(args.relationName, args.column1);
+        result.success = iface.performUnaryDelete(args.tuple);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -620,7 +644,28 @@ public class MondixTeiidChangeService {
 
       public performUnaryUpdate_result getResult(I iface, performUnaryUpdate_args args) throws org.apache.thrift.TException {
         performUnaryUpdate_result result = new performUnaryUpdate_result();
-        result.success = iface.performUnaryUpdate(args.relationName, args.column1);
+        result.success = iface.performUnaryUpdate(args.oldTuple, args.newTuple);
+        result.setSuccessIsSet(true);
+        return result;
+      }
+    }
+
+    public static class getMatchesCount<I extends Iface> extends org.apache.thrift.ProcessFunction<I, getMatchesCount_args> {
+      public getMatchesCount() {
+        super("getMatchesCount");
+      }
+
+      public getMatchesCount_args getEmptyArgsInstance() {
+        return new getMatchesCount_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public getMatchesCount_result getResult(I iface, getMatchesCount_args args) throws org.apache.thrift.TException {
+        getMatchesCount_result result = new getMatchesCount_result();
+        result.success = iface.getMatchesCount(args.query);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -645,6 +690,7 @@ public class MondixTeiidChangeService {
       processMap.put("performUnaryInsert", new performUnaryInsert());
       processMap.put("performUnaryDelete", new performUnaryDelete());
       processMap.put("performUnaryUpdate", new performUnaryUpdate());
+      processMap.put("getMatchesCount", new getMatchesCount());
       return processMap;
     }
 
@@ -696,7 +742,7 @@ public class MondixTeiidChangeService {
       }
 
       public void start(I iface, performBinaryInsert_args args, org.apache.thrift.async.AsyncMethodCallback<Integer> resultHandler) throws TException {
-        iface.performBinaryInsert(args.relationName, args.column1, args.column2,resultHandler);
+        iface.performBinaryInsert(args.tuple,resultHandler);
       }
     }
 
@@ -748,7 +794,7 @@ public class MondixTeiidChangeService {
       }
 
       public void start(I iface, performBinaryDelete_args args, org.apache.thrift.async.AsyncMethodCallback<Integer> resultHandler) throws TException {
-        iface.performBinaryDelete(args.relationName, args.column1, args.column2,resultHandler);
+        iface.performBinaryDelete(args.tuple,resultHandler);
       }
     }
 
@@ -800,7 +846,7 @@ public class MondixTeiidChangeService {
       }
 
       public void start(I iface, performBinaryUpdate_args args, org.apache.thrift.async.AsyncMethodCallback<Integer> resultHandler) throws TException {
-        iface.performBinaryUpdate(args.relationName, args.old_column1, args.old_column2, args.new_column1, args.new_column2,resultHandler);
+        iface.performBinaryUpdate(args.oldTuple, args.newTuple,resultHandler);
       }
     }
 
@@ -852,7 +898,7 @@ public class MondixTeiidChangeService {
       }
 
       public void start(I iface, performUnaryInsert_args args, org.apache.thrift.async.AsyncMethodCallback<Integer> resultHandler) throws TException {
-        iface.performUnaryInsert(args.relationName, args.column1,resultHandler);
+        iface.performUnaryInsert(args.tuple,resultHandler);
       }
     }
 
@@ -904,7 +950,7 @@ public class MondixTeiidChangeService {
       }
 
       public void start(I iface, performUnaryDelete_args args, org.apache.thrift.async.AsyncMethodCallback<Integer> resultHandler) throws TException {
-        iface.performUnaryDelete(args.relationName, args.column1,resultHandler);
+        iface.performUnaryDelete(args.tuple,resultHandler);
       }
     }
 
@@ -956,7 +1002,59 @@ public class MondixTeiidChangeService {
       }
 
       public void start(I iface, performUnaryUpdate_args args, org.apache.thrift.async.AsyncMethodCallback<Integer> resultHandler) throws TException {
-        iface.performUnaryUpdate(args.relationName, args.column1,resultHandler);
+        iface.performUnaryUpdate(args.oldTuple, args.newTuple,resultHandler);
+      }
+    }
+
+    public static class getMatchesCount<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, getMatchesCount_args, Long> {
+      public getMatchesCount() {
+        super("getMatchesCount");
+      }
+
+      public getMatchesCount_args getEmptyArgsInstance() {
+        return new getMatchesCount_args();
+      }
+
+      public AsyncMethodCallback<Long> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<Long>() { 
+          public void onComplete(Long o) {
+            getMatchesCount_result result = new getMatchesCount_result();
+            result.success = o;
+            result.setSuccessIsSet(true);
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            getMatchesCount_result result = new getMatchesCount_result();
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, getMatchesCount_args args, org.apache.thrift.async.AsyncMethodCallback<Long> resultHandler) throws TException {
+        iface.getMatchesCount(args.query,resultHandler);
       }
     }
 
@@ -965,9 +1063,7 @@ public class MondixTeiidChangeService {
   public static class performBinaryInsert_args implements org.apache.thrift.TBase<performBinaryInsert_args, performBinaryInsert_args._Fields>, java.io.Serializable, Cloneable, Comparable<performBinaryInsert_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("performBinaryInsert_args");
 
-    private static final org.apache.thrift.protocol.TField RELATION_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("relationName", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField COLUMN1_FIELD_DESC = new org.apache.thrift.protocol.TField("column1", org.apache.thrift.protocol.TType.STRING, (short)2);
-    private static final org.apache.thrift.protocol.TField COLUMN2_FIELD_DESC = new org.apache.thrift.protocol.TField("column2", org.apache.thrift.protocol.TType.STRING, (short)3);
+    private static final org.apache.thrift.protocol.TField TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("tuple", org.apache.thrift.protocol.TType.STRUCT, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -975,15 +1071,11 @@ public class MondixTeiidChangeService {
       schemes.put(TupleScheme.class, new performBinaryInsert_argsTupleSchemeFactory());
     }
 
-    public String relationName; // required
-    public String column1; // required
-    public String column2; // required
+    public BinaryTuple tuple; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      RELATION_NAME((short)1, "relationName"),
-      COLUMN1((short)2, "column1"),
-      COLUMN2((short)3, "column2");
+      TUPLE((short)1, "tuple");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -998,12 +1090,8 @@ public class MondixTeiidChangeService {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // RELATION_NAME
-            return RELATION_NAME;
-          case 2: // COLUMN1
-            return COLUMN1;
-          case 3: // COLUMN2
-            return COLUMN2;
+          case 1: // TUPLE
+            return TUPLE;
           default:
             return null;
         }
@@ -1047,12 +1135,8 @@ public class MondixTeiidChangeService {
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.RELATION_NAME, new org.apache.thrift.meta_data.FieldMetaData("relationName", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.COLUMN1, new org.apache.thrift.meta_data.FieldMetaData("column1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.COLUMN2, new org.apache.thrift.meta_data.FieldMetaData("column2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.TUPLE, new org.apache.thrift.meta_data.FieldMetaData("tuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, BinaryTuple.class)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(performBinaryInsert_args.class, metaDataMap);
     }
@@ -1061,28 +1145,18 @@ public class MondixTeiidChangeService {
     }
 
     public performBinaryInsert_args(
-      String relationName,
-      String column1,
-      String column2)
+      BinaryTuple tuple)
     {
       this();
-      this.relationName = relationName;
-      this.column1 = column1;
-      this.column2 = column2;
+      this.tuple = tuple;
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public performBinaryInsert_args(performBinaryInsert_args other) {
-      if (other.isSetRelationName()) {
-        this.relationName = other.relationName;
-      }
-      if (other.isSetColumn1()) {
-        this.column1 = other.column1;
-      }
-      if (other.isSetColumn2()) {
-        this.column2 = other.column2;
+      if (other.isSetTuple()) {
+        this.tuple = new BinaryTuple(other.tuple);
       }
     }
 
@@ -1092,106 +1166,40 @@ public class MondixTeiidChangeService {
 
     @Override
     public void clear() {
-      this.relationName = null;
-      this.column1 = null;
-      this.column2 = null;
+      this.tuple = null;
     }
 
-    public String getRelationName() {
-      return this.relationName;
+    public BinaryTuple getTuple() {
+      return this.tuple;
     }
 
-    public performBinaryInsert_args setRelationName(String relationName) {
-      this.relationName = relationName;
+    public performBinaryInsert_args setTuple(BinaryTuple tuple) {
+      this.tuple = tuple;
       return this;
     }
 
-    public void unsetRelationName() {
-      this.relationName = null;
+    public void unsetTuple() {
+      this.tuple = null;
     }
 
-    /** Returns true if field relationName is set (has been assigned a value) and false otherwise */
-    public boolean isSetRelationName() {
-      return this.relationName != null;
+    /** Returns true if field tuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetTuple() {
+      return this.tuple != null;
     }
 
-    public void setRelationNameIsSet(boolean value) {
+    public void setTupleIsSet(boolean value) {
       if (!value) {
-        this.relationName = null;
-      }
-    }
-
-    public String getColumn1() {
-      return this.column1;
-    }
-
-    public performBinaryInsert_args setColumn1(String column1) {
-      this.column1 = column1;
-      return this;
-    }
-
-    public void unsetColumn1() {
-      this.column1 = null;
-    }
-
-    /** Returns true if field column1 is set (has been assigned a value) and false otherwise */
-    public boolean isSetColumn1() {
-      return this.column1 != null;
-    }
-
-    public void setColumn1IsSet(boolean value) {
-      if (!value) {
-        this.column1 = null;
-      }
-    }
-
-    public String getColumn2() {
-      return this.column2;
-    }
-
-    public performBinaryInsert_args setColumn2(String column2) {
-      this.column2 = column2;
-      return this;
-    }
-
-    public void unsetColumn2() {
-      this.column2 = null;
-    }
-
-    /** Returns true if field column2 is set (has been assigned a value) and false otherwise */
-    public boolean isSetColumn2() {
-      return this.column2 != null;
-    }
-
-    public void setColumn2IsSet(boolean value) {
-      if (!value) {
-        this.column2 = null;
+        this.tuple = null;
       }
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case RELATION_NAME:
+      case TUPLE:
         if (value == null) {
-          unsetRelationName();
+          unsetTuple();
         } else {
-          setRelationName((String)value);
-        }
-        break;
-
-      case COLUMN1:
-        if (value == null) {
-          unsetColumn1();
-        } else {
-          setColumn1((String)value);
-        }
-        break;
-
-      case COLUMN2:
-        if (value == null) {
-          unsetColumn2();
-        } else {
-          setColumn2((String)value);
+          setTuple((BinaryTuple)value);
         }
         break;
 
@@ -1200,14 +1208,8 @@ public class MondixTeiidChangeService {
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case RELATION_NAME:
-        return getRelationName();
-
-      case COLUMN1:
-        return getColumn1();
-
-      case COLUMN2:
-        return getColumn2();
+      case TUPLE:
+        return getTuple();
 
       }
       throw new IllegalStateException();
@@ -1220,12 +1222,8 @@ public class MondixTeiidChangeService {
       }
 
       switch (field) {
-      case RELATION_NAME:
-        return isSetRelationName();
-      case COLUMN1:
-        return isSetColumn1();
-      case COLUMN2:
-        return isSetColumn2();
+      case TUPLE:
+        return isSetTuple();
       }
       throw new IllegalStateException();
     }
@@ -1243,30 +1241,12 @@ public class MondixTeiidChangeService {
       if (that == null)
         return false;
 
-      boolean this_present_relationName = true && this.isSetRelationName();
-      boolean that_present_relationName = true && that.isSetRelationName();
-      if (this_present_relationName || that_present_relationName) {
-        if (!(this_present_relationName && that_present_relationName))
+      boolean this_present_tuple = true && this.isSetTuple();
+      boolean that_present_tuple = true && that.isSetTuple();
+      if (this_present_tuple || that_present_tuple) {
+        if (!(this_present_tuple && that_present_tuple))
           return false;
-        if (!this.relationName.equals(that.relationName))
-          return false;
-      }
-
-      boolean this_present_column1 = true && this.isSetColumn1();
-      boolean that_present_column1 = true && that.isSetColumn1();
-      if (this_present_column1 || that_present_column1) {
-        if (!(this_present_column1 && that_present_column1))
-          return false;
-        if (!this.column1.equals(that.column1))
-          return false;
-      }
-
-      boolean this_present_column2 = true && this.isSetColumn2();
-      boolean that_present_column2 = true && that.isSetColumn2();
-      if (this_present_column2 || that_present_column2) {
-        if (!(this_present_column2 && that_present_column2))
-          return false;
-        if (!this.column2.equals(that.column2))
+        if (!this.tuple.equals(that.tuple))
           return false;
       }
 
@@ -1286,32 +1266,12 @@ public class MondixTeiidChangeService {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetRelationName()).compareTo(other.isSetRelationName());
+      lastComparison = Boolean.valueOf(isSetTuple()).compareTo(other.isSetTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetRelationName()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.relationName, other.relationName);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetColumn1()).compareTo(other.isSetColumn1());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetColumn1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.column1, other.column1);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetColumn2()).compareTo(other.isSetColumn2());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetColumn2()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.column2, other.column2);
+      if (isSetTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.tuple, other.tuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -1336,27 +1296,11 @@ public class MondixTeiidChangeService {
       StringBuilder sb = new StringBuilder("performBinaryInsert_args(");
       boolean first = true;
 
-      sb.append("relationName:");
-      if (this.relationName == null) {
+      sb.append("tuple:");
+      if (this.tuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.relationName);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("column1:");
-      if (this.column1 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.column1);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("column2:");
-      if (this.column2 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.column2);
+        sb.append(this.tuple);
       }
       first = false;
       sb.append(")");
@@ -1366,6 +1310,9 @@ public class MondixTeiidChangeService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (tuple != null) {
+        tuple.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -1402,26 +1349,11 @@ public class MondixTeiidChangeService {
             break;
           }
           switch (schemeField.id) {
-            case 1: // RELATION_NAME
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.relationName = iprot.readString();
-                struct.setRelationNameIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // COLUMN1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.column1 = iprot.readString();
-                struct.setColumn1IsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 3: // COLUMN2
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.column2 = iprot.readString();
-                struct.setColumn2IsSet(true);
+            case 1: // TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.tuple = new BinaryTuple();
+                struct.tuple.read(iprot);
+                struct.setTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -1441,19 +1373,9 @@ public class MondixTeiidChangeService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.relationName != null) {
-          oprot.writeFieldBegin(RELATION_NAME_FIELD_DESC);
-          oprot.writeString(struct.relationName);
-          oprot.writeFieldEnd();
-        }
-        if (struct.column1 != null) {
-          oprot.writeFieldBegin(COLUMN1_FIELD_DESC);
-          oprot.writeString(struct.column1);
-          oprot.writeFieldEnd();
-        }
-        if (struct.column2 != null) {
-          oprot.writeFieldBegin(COLUMN2_FIELD_DESC);
-          oprot.writeString(struct.column2);
+        if (struct.tuple != null) {
+          oprot.writeFieldBegin(TUPLE_FIELD_DESC);
+          struct.tuple.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -1474,42 +1396,23 @@ public class MondixTeiidChangeService {
       public void write(org.apache.thrift.protocol.TProtocol prot, performBinaryInsert_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetRelationName()) {
+        if (struct.isSetTuple()) {
           optionals.set(0);
         }
-        if (struct.isSetColumn1()) {
-          optionals.set(1);
-        }
-        if (struct.isSetColumn2()) {
-          optionals.set(2);
-        }
-        oprot.writeBitSet(optionals, 3);
-        if (struct.isSetRelationName()) {
-          oprot.writeString(struct.relationName);
-        }
-        if (struct.isSetColumn1()) {
-          oprot.writeString(struct.column1);
-        }
-        if (struct.isSetColumn2()) {
-          oprot.writeString(struct.column2);
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetTuple()) {
+          struct.tuple.write(oprot);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, performBinaryInsert_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(3);
+        BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
-          struct.relationName = iprot.readString();
-          struct.setRelationNameIsSet(true);
-        }
-        if (incoming.get(1)) {
-          struct.column1 = iprot.readString();
-          struct.setColumn1IsSet(true);
-        }
-        if (incoming.get(2)) {
-          struct.column2 = iprot.readString();
-          struct.setColumn2IsSet(true);
+          struct.tuple = new BinaryTuple();
+          struct.tuple.read(iprot);
+          struct.setTupleIsSet(true);
         }
       }
     }
@@ -1873,9 +1776,7 @@ public class MondixTeiidChangeService {
   public static class performBinaryDelete_args implements org.apache.thrift.TBase<performBinaryDelete_args, performBinaryDelete_args._Fields>, java.io.Serializable, Cloneable, Comparable<performBinaryDelete_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("performBinaryDelete_args");
 
-    private static final org.apache.thrift.protocol.TField RELATION_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("relationName", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField COLUMN1_FIELD_DESC = new org.apache.thrift.protocol.TField("column1", org.apache.thrift.protocol.TType.STRING, (short)2);
-    private static final org.apache.thrift.protocol.TField COLUMN2_FIELD_DESC = new org.apache.thrift.protocol.TField("column2", org.apache.thrift.protocol.TType.STRING, (short)3);
+    private static final org.apache.thrift.protocol.TField TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("tuple", org.apache.thrift.protocol.TType.STRUCT, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -1883,15 +1784,11 @@ public class MondixTeiidChangeService {
       schemes.put(TupleScheme.class, new performBinaryDelete_argsTupleSchemeFactory());
     }
 
-    public String relationName; // required
-    public String column1; // required
-    public String column2; // required
+    public BinaryTuple tuple; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      RELATION_NAME((short)1, "relationName"),
-      COLUMN1((short)2, "column1"),
-      COLUMN2((short)3, "column2");
+      TUPLE((short)1, "tuple");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -1906,12 +1803,8 @@ public class MondixTeiidChangeService {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // RELATION_NAME
-            return RELATION_NAME;
-          case 2: // COLUMN1
-            return COLUMN1;
-          case 3: // COLUMN2
-            return COLUMN2;
+          case 1: // TUPLE
+            return TUPLE;
           default:
             return null;
         }
@@ -1955,12 +1848,8 @@ public class MondixTeiidChangeService {
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.RELATION_NAME, new org.apache.thrift.meta_data.FieldMetaData("relationName", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.COLUMN1, new org.apache.thrift.meta_data.FieldMetaData("column1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.COLUMN2, new org.apache.thrift.meta_data.FieldMetaData("column2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.TUPLE, new org.apache.thrift.meta_data.FieldMetaData("tuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, BinaryTuple.class)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(performBinaryDelete_args.class, metaDataMap);
     }
@@ -1969,28 +1858,18 @@ public class MondixTeiidChangeService {
     }
 
     public performBinaryDelete_args(
-      String relationName,
-      String column1,
-      String column2)
+      BinaryTuple tuple)
     {
       this();
-      this.relationName = relationName;
-      this.column1 = column1;
-      this.column2 = column2;
+      this.tuple = tuple;
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public performBinaryDelete_args(performBinaryDelete_args other) {
-      if (other.isSetRelationName()) {
-        this.relationName = other.relationName;
-      }
-      if (other.isSetColumn1()) {
-        this.column1 = other.column1;
-      }
-      if (other.isSetColumn2()) {
-        this.column2 = other.column2;
+      if (other.isSetTuple()) {
+        this.tuple = new BinaryTuple(other.tuple);
       }
     }
 
@@ -2000,106 +1879,40 @@ public class MondixTeiidChangeService {
 
     @Override
     public void clear() {
-      this.relationName = null;
-      this.column1 = null;
-      this.column2 = null;
+      this.tuple = null;
     }
 
-    public String getRelationName() {
-      return this.relationName;
+    public BinaryTuple getTuple() {
+      return this.tuple;
     }
 
-    public performBinaryDelete_args setRelationName(String relationName) {
-      this.relationName = relationName;
+    public performBinaryDelete_args setTuple(BinaryTuple tuple) {
+      this.tuple = tuple;
       return this;
     }
 
-    public void unsetRelationName() {
-      this.relationName = null;
+    public void unsetTuple() {
+      this.tuple = null;
     }
 
-    /** Returns true if field relationName is set (has been assigned a value) and false otherwise */
-    public boolean isSetRelationName() {
-      return this.relationName != null;
+    /** Returns true if field tuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetTuple() {
+      return this.tuple != null;
     }
 
-    public void setRelationNameIsSet(boolean value) {
+    public void setTupleIsSet(boolean value) {
       if (!value) {
-        this.relationName = null;
-      }
-    }
-
-    public String getColumn1() {
-      return this.column1;
-    }
-
-    public performBinaryDelete_args setColumn1(String column1) {
-      this.column1 = column1;
-      return this;
-    }
-
-    public void unsetColumn1() {
-      this.column1 = null;
-    }
-
-    /** Returns true if field column1 is set (has been assigned a value) and false otherwise */
-    public boolean isSetColumn1() {
-      return this.column1 != null;
-    }
-
-    public void setColumn1IsSet(boolean value) {
-      if (!value) {
-        this.column1 = null;
-      }
-    }
-
-    public String getColumn2() {
-      return this.column2;
-    }
-
-    public performBinaryDelete_args setColumn2(String column2) {
-      this.column2 = column2;
-      return this;
-    }
-
-    public void unsetColumn2() {
-      this.column2 = null;
-    }
-
-    /** Returns true if field column2 is set (has been assigned a value) and false otherwise */
-    public boolean isSetColumn2() {
-      return this.column2 != null;
-    }
-
-    public void setColumn2IsSet(boolean value) {
-      if (!value) {
-        this.column2 = null;
+        this.tuple = null;
       }
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case RELATION_NAME:
+      case TUPLE:
         if (value == null) {
-          unsetRelationName();
+          unsetTuple();
         } else {
-          setRelationName((String)value);
-        }
-        break;
-
-      case COLUMN1:
-        if (value == null) {
-          unsetColumn1();
-        } else {
-          setColumn1((String)value);
-        }
-        break;
-
-      case COLUMN2:
-        if (value == null) {
-          unsetColumn2();
-        } else {
-          setColumn2((String)value);
+          setTuple((BinaryTuple)value);
         }
         break;
 
@@ -2108,14 +1921,8 @@ public class MondixTeiidChangeService {
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case RELATION_NAME:
-        return getRelationName();
-
-      case COLUMN1:
-        return getColumn1();
-
-      case COLUMN2:
-        return getColumn2();
+      case TUPLE:
+        return getTuple();
 
       }
       throw new IllegalStateException();
@@ -2128,12 +1935,8 @@ public class MondixTeiidChangeService {
       }
 
       switch (field) {
-      case RELATION_NAME:
-        return isSetRelationName();
-      case COLUMN1:
-        return isSetColumn1();
-      case COLUMN2:
-        return isSetColumn2();
+      case TUPLE:
+        return isSetTuple();
       }
       throw new IllegalStateException();
     }
@@ -2151,30 +1954,12 @@ public class MondixTeiidChangeService {
       if (that == null)
         return false;
 
-      boolean this_present_relationName = true && this.isSetRelationName();
-      boolean that_present_relationName = true && that.isSetRelationName();
-      if (this_present_relationName || that_present_relationName) {
-        if (!(this_present_relationName && that_present_relationName))
+      boolean this_present_tuple = true && this.isSetTuple();
+      boolean that_present_tuple = true && that.isSetTuple();
+      if (this_present_tuple || that_present_tuple) {
+        if (!(this_present_tuple && that_present_tuple))
           return false;
-        if (!this.relationName.equals(that.relationName))
-          return false;
-      }
-
-      boolean this_present_column1 = true && this.isSetColumn1();
-      boolean that_present_column1 = true && that.isSetColumn1();
-      if (this_present_column1 || that_present_column1) {
-        if (!(this_present_column1 && that_present_column1))
-          return false;
-        if (!this.column1.equals(that.column1))
-          return false;
-      }
-
-      boolean this_present_column2 = true && this.isSetColumn2();
-      boolean that_present_column2 = true && that.isSetColumn2();
-      if (this_present_column2 || that_present_column2) {
-        if (!(this_present_column2 && that_present_column2))
-          return false;
-        if (!this.column2.equals(that.column2))
+        if (!this.tuple.equals(that.tuple))
           return false;
       }
 
@@ -2194,32 +1979,12 @@ public class MondixTeiidChangeService {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetRelationName()).compareTo(other.isSetRelationName());
+      lastComparison = Boolean.valueOf(isSetTuple()).compareTo(other.isSetTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetRelationName()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.relationName, other.relationName);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetColumn1()).compareTo(other.isSetColumn1());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetColumn1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.column1, other.column1);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetColumn2()).compareTo(other.isSetColumn2());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetColumn2()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.column2, other.column2);
+      if (isSetTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.tuple, other.tuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -2244,27 +2009,11 @@ public class MondixTeiidChangeService {
       StringBuilder sb = new StringBuilder("performBinaryDelete_args(");
       boolean first = true;
 
-      sb.append("relationName:");
-      if (this.relationName == null) {
+      sb.append("tuple:");
+      if (this.tuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.relationName);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("column1:");
-      if (this.column1 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.column1);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("column2:");
-      if (this.column2 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.column2);
+        sb.append(this.tuple);
       }
       first = false;
       sb.append(")");
@@ -2274,6 +2023,9 @@ public class MondixTeiidChangeService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (tuple != null) {
+        tuple.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -2310,26 +2062,11 @@ public class MondixTeiidChangeService {
             break;
           }
           switch (schemeField.id) {
-            case 1: // RELATION_NAME
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.relationName = iprot.readString();
-                struct.setRelationNameIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // COLUMN1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.column1 = iprot.readString();
-                struct.setColumn1IsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 3: // COLUMN2
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.column2 = iprot.readString();
-                struct.setColumn2IsSet(true);
+            case 1: // TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.tuple = new BinaryTuple();
+                struct.tuple.read(iprot);
+                struct.setTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -2349,19 +2086,9 @@ public class MondixTeiidChangeService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.relationName != null) {
-          oprot.writeFieldBegin(RELATION_NAME_FIELD_DESC);
-          oprot.writeString(struct.relationName);
-          oprot.writeFieldEnd();
-        }
-        if (struct.column1 != null) {
-          oprot.writeFieldBegin(COLUMN1_FIELD_DESC);
-          oprot.writeString(struct.column1);
-          oprot.writeFieldEnd();
-        }
-        if (struct.column2 != null) {
-          oprot.writeFieldBegin(COLUMN2_FIELD_DESC);
-          oprot.writeString(struct.column2);
+        if (struct.tuple != null) {
+          oprot.writeFieldBegin(TUPLE_FIELD_DESC);
+          struct.tuple.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -2382,42 +2109,23 @@ public class MondixTeiidChangeService {
       public void write(org.apache.thrift.protocol.TProtocol prot, performBinaryDelete_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetRelationName()) {
+        if (struct.isSetTuple()) {
           optionals.set(0);
         }
-        if (struct.isSetColumn1()) {
-          optionals.set(1);
-        }
-        if (struct.isSetColumn2()) {
-          optionals.set(2);
-        }
-        oprot.writeBitSet(optionals, 3);
-        if (struct.isSetRelationName()) {
-          oprot.writeString(struct.relationName);
-        }
-        if (struct.isSetColumn1()) {
-          oprot.writeString(struct.column1);
-        }
-        if (struct.isSetColumn2()) {
-          oprot.writeString(struct.column2);
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetTuple()) {
+          struct.tuple.write(oprot);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, performBinaryDelete_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(3);
+        BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
-          struct.relationName = iprot.readString();
-          struct.setRelationNameIsSet(true);
-        }
-        if (incoming.get(1)) {
-          struct.column1 = iprot.readString();
-          struct.setColumn1IsSet(true);
-        }
-        if (incoming.get(2)) {
-          struct.column2 = iprot.readString();
-          struct.setColumn2IsSet(true);
+          struct.tuple = new BinaryTuple();
+          struct.tuple.read(iprot);
+          struct.setTupleIsSet(true);
         }
       }
     }
@@ -2781,11 +2489,8 @@ public class MondixTeiidChangeService {
   public static class performBinaryUpdate_args implements org.apache.thrift.TBase<performBinaryUpdate_args, performBinaryUpdate_args._Fields>, java.io.Serializable, Cloneable, Comparable<performBinaryUpdate_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("performBinaryUpdate_args");
 
-    private static final org.apache.thrift.protocol.TField RELATION_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("relationName", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField OLD_COLUMN1_FIELD_DESC = new org.apache.thrift.protocol.TField("old_column1", org.apache.thrift.protocol.TType.STRING, (short)2);
-    private static final org.apache.thrift.protocol.TField OLD_COLUMN2_FIELD_DESC = new org.apache.thrift.protocol.TField("old_column2", org.apache.thrift.protocol.TType.STRING, (short)3);
-    private static final org.apache.thrift.protocol.TField NEW_COLUMN1_FIELD_DESC = new org.apache.thrift.protocol.TField("new_column1", org.apache.thrift.protocol.TType.STRING, (short)4);
-    private static final org.apache.thrift.protocol.TField NEW_COLUMN2_FIELD_DESC = new org.apache.thrift.protocol.TField("new_column2", org.apache.thrift.protocol.TType.STRING, (short)5);
+    private static final org.apache.thrift.protocol.TField OLD_TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("oldTuple", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+    private static final org.apache.thrift.protocol.TField NEW_TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("newTuple", org.apache.thrift.protocol.TType.STRUCT, (short)2);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -2793,19 +2498,13 @@ public class MondixTeiidChangeService {
       schemes.put(TupleScheme.class, new performBinaryUpdate_argsTupleSchemeFactory());
     }
 
-    public String relationName; // required
-    public String old_column1; // required
-    public String old_column2; // required
-    public String new_column1; // required
-    public String new_column2; // required
+    public BinaryTuple oldTuple; // required
+    public BinaryTuple newTuple; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      RELATION_NAME((short)1, "relationName"),
-      OLD_COLUMN1((short)2, "old_column1"),
-      OLD_COLUMN2((short)3, "old_column2"),
-      NEW_COLUMN1((short)4, "new_column1"),
-      NEW_COLUMN2((short)5, "new_column2");
+      OLD_TUPLE((short)1, "oldTuple"),
+      NEW_TUPLE((short)2, "newTuple");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -2820,16 +2519,10 @@ public class MondixTeiidChangeService {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // RELATION_NAME
-            return RELATION_NAME;
-          case 2: // OLD_COLUMN1
-            return OLD_COLUMN1;
-          case 3: // OLD_COLUMN2
-            return OLD_COLUMN2;
-          case 4: // NEW_COLUMN1
-            return NEW_COLUMN1;
-          case 5: // NEW_COLUMN2
-            return NEW_COLUMN2;
+          case 1: // OLD_TUPLE
+            return OLD_TUPLE;
+          case 2: // NEW_TUPLE
+            return NEW_TUPLE;
           default:
             return null;
         }
@@ -2873,16 +2566,10 @@ public class MondixTeiidChangeService {
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.RELATION_NAME, new org.apache.thrift.meta_data.FieldMetaData("relationName", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.OLD_COLUMN1, new org.apache.thrift.meta_data.FieldMetaData("old_column1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.OLD_COLUMN2, new org.apache.thrift.meta_data.FieldMetaData("old_column2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.NEW_COLUMN1, new org.apache.thrift.meta_data.FieldMetaData("new_column1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.NEW_COLUMN2, new org.apache.thrift.meta_data.FieldMetaData("new_column2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.OLD_TUPLE, new org.apache.thrift.meta_data.FieldMetaData("oldTuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, BinaryTuple.class)));
+      tmpMap.put(_Fields.NEW_TUPLE, new org.apache.thrift.meta_data.FieldMetaData("newTuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, BinaryTuple.class)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(performBinaryUpdate_args.class, metaDataMap);
     }
@@ -2891,38 +2578,23 @@ public class MondixTeiidChangeService {
     }
 
     public performBinaryUpdate_args(
-      String relationName,
-      String old_column1,
-      String old_column2,
-      String new_column1,
-      String new_column2)
+      BinaryTuple oldTuple,
+      BinaryTuple newTuple)
     {
       this();
-      this.relationName = relationName;
-      this.old_column1 = old_column1;
-      this.old_column2 = old_column2;
-      this.new_column1 = new_column1;
-      this.new_column2 = new_column2;
+      this.oldTuple = oldTuple;
+      this.newTuple = newTuple;
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public performBinaryUpdate_args(performBinaryUpdate_args other) {
-      if (other.isSetRelationName()) {
-        this.relationName = other.relationName;
+      if (other.isSetOldTuple()) {
+        this.oldTuple = new BinaryTuple(other.oldTuple);
       }
-      if (other.isSetOld_column1()) {
-        this.old_column1 = other.old_column1;
-      }
-      if (other.isSetOld_column2()) {
-        this.old_column2 = other.old_column2;
-      }
-      if (other.isSetNew_column1()) {
-        this.new_column1 = other.new_column1;
-      }
-      if (other.isSetNew_column2()) {
-        this.new_column2 = other.new_column2;
+      if (other.isSetNewTuple()) {
+        this.newTuple = new BinaryTuple(other.newTuple);
       }
     }
 
@@ -2932,172 +2604,73 @@ public class MondixTeiidChangeService {
 
     @Override
     public void clear() {
-      this.relationName = null;
-      this.old_column1 = null;
-      this.old_column2 = null;
-      this.new_column1 = null;
-      this.new_column2 = null;
+      this.oldTuple = null;
+      this.newTuple = null;
     }
 
-    public String getRelationName() {
-      return this.relationName;
+    public BinaryTuple getOldTuple() {
+      return this.oldTuple;
     }
 
-    public performBinaryUpdate_args setRelationName(String relationName) {
-      this.relationName = relationName;
+    public performBinaryUpdate_args setOldTuple(BinaryTuple oldTuple) {
+      this.oldTuple = oldTuple;
       return this;
     }
 
-    public void unsetRelationName() {
-      this.relationName = null;
+    public void unsetOldTuple() {
+      this.oldTuple = null;
     }
 
-    /** Returns true if field relationName is set (has been assigned a value) and false otherwise */
-    public boolean isSetRelationName() {
-      return this.relationName != null;
+    /** Returns true if field oldTuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetOldTuple() {
+      return this.oldTuple != null;
     }
 
-    public void setRelationNameIsSet(boolean value) {
+    public void setOldTupleIsSet(boolean value) {
       if (!value) {
-        this.relationName = null;
+        this.oldTuple = null;
       }
     }
 
-    public String getOld_column1() {
-      return this.old_column1;
+    public BinaryTuple getNewTuple() {
+      return this.newTuple;
     }
 
-    public performBinaryUpdate_args setOld_column1(String old_column1) {
-      this.old_column1 = old_column1;
+    public performBinaryUpdate_args setNewTuple(BinaryTuple newTuple) {
+      this.newTuple = newTuple;
       return this;
     }
 
-    public void unsetOld_column1() {
-      this.old_column1 = null;
+    public void unsetNewTuple() {
+      this.newTuple = null;
     }
 
-    /** Returns true if field old_column1 is set (has been assigned a value) and false otherwise */
-    public boolean isSetOld_column1() {
-      return this.old_column1 != null;
+    /** Returns true if field newTuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetNewTuple() {
+      return this.newTuple != null;
     }
 
-    public void setOld_column1IsSet(boolean value) {
+    public void setNewTupleIsSet(boolean value) {
       if (!value) {
-        this.old_column1 = null;
-      }
-    }
-
-    public String getOld_column2() {
-      return this.old_column2;
-    }
-
-    public performBinaryUpdate_args setOld_column2(String old_column2) {
-      this.old_column2 = old_column2;
-      return this;
-    }
-
-    public void unsetOld_column2() {
-      this.old_column2 = null;
-    }
-
-    /** Returns true if field old_column2 is set (has been assigned a value) and false otherwise */
-    public boolean isSetOld_column2() {
-      return this.old_column2 != null;
-    }
-
-    public void setOld_column2IsSet(boolean value) {
-      if (!value) {
-        this.old_column2 = null;
-      }
-    }
-
-    public String getNew_column1() {
-      return this.new_column1;
-    }
-
-    public performBinaryUpdate_args setNew_column1(String new_column1) {
-      this.new_column1 = new_column1;
-      return this;
-    }
-
-    public void unsetNew_column1() {
-      this.new_column1 = null;
-    }
-
-    /** Returns true if field new_column1 is set (has been assigned a value) and false otherwise */
-    public boolean isSetNew_column1() {
-      return this.new_column1 != null;
-    }
-
-    public void setNew_column1IsSet(boolean value) {
-      if (!value) {
-        this.new_column1 = null;
-      }
-    }
-
-    public String getNew_column2() {
-      return this.new_column2;
-    }
-
-    public performBinaryUpdate_args setNew_column2(String new_column2) {
-      this.new_column2 = new_column2;
-      return this;
-    }
-
-    public void unsetNew_column2() {
-      this.new_column2 = null;
-    }
-
-    /** Returns true if field new_column2 is set (has been assigned a value) and false otherwise */
-    public boolean isSetNew_column2() {
-      return this.new_column2 != null;
-    }
-
-    public void setNew_column2IsSet(boolean value) {
-      if (!value) {
-        this.new_column2 = null;
+        this.newTuple = null;
       }
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case RELATION_NAME:
+      case OLD_TUPLE:
         if (value == null) {
-          unsetRelationName();
+          unsetOldTuple();
         } else {
-          setRelationName((String)value);
+          setOldTuple((BinaryTuple)value);
         }
         break;
 
-      case OLD_COLUMN1:
+      case NEW_TUPLE:
         if (value == null) {
-          unsetOld_column1();
+          unsetNewTuple();
         } else {
-          setOld_column1((String)value);
-        }
-        break;
-
-      case OLD_COLUMN2:
-        if (value == null) {
-          unsetOld_column2();
-        } else {
-          setOld_column2((String)value);
-        }
-        break;
-
-      case NEW_COLUMN1:
-        if (value == null) {
-          unsetNew_column1();
-        } else {
-          setNew_column1((String)value);
-        }
-        break;
-
-      case NEW_COLUMN2:
-        if (value == null) {
-          unsetNew_column2();
-        } else {
-          setNew_column2((String)value);
+          setNewTuple((BinaryTuple)value);
         }
         break;
 
@@ -3106,20 +2679,11 @@ public class MondixTeiidChangeService {
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case RELATION_NAME:
-        return getRelationName();
+      case OLD_TUPLE:
+        return getOldTuple();
 
-      case OLD_COLUMN1:
-        return getOld_column1();
-
-      case OLD_COLUMN2:
-        return getOld_column2();
-
-      case NEW_COLUMN1:
-        return getNew_column1();
-
-      case NEW_COLUMN2:
-        return getNew_column2();
+      case NEW_TUPLE:
+        return getNewTuple();
 
       }
       throw new IllegalStateException();
@@ -3132,16 +2696,10 @@ public class MondixTeiidChangeService {
       }
 
       switch (field) {
-      case RELATION_NAME:
-        return isSetRelationName();
-      case OLD_COLUMN1:
-        return isSetOld_column1();
-      case OLD_COLUMN2:
-        return isSetOld_column2();
-      case NEW_COLUMN1:
-        return isSetNew_column1();
-      case NEW_COLUMN2:
-        return isSetNew_column2();
+      case OLD_TUPLE:
+        return isSetOldTuple();
+      case NEW_TUPLE:
+        return isSetNewTuple();
       }
       throw new IllegalStateException();
     }
@@ -3159,48 +2717,21 @@ public class MondixTeiidChangeService {
       if (that == null)
         return false;
 
-      boolean this_present_relationName = true && this.isSetRelationName();
-      boolean that_present_relationName = true && that.isSetRelationName();
-      if (this_present_relationName || that_present_relationName) {
-        if (!(this_present_relationName && that_present_relationName))
+      boolean this_present_oldTuple = true && this.isSetOldTuple();
+      boolean that_present_oldTuple = true && that.isSetOldTuple();
+      if (this_present_oldTuple || that_present_oldTuple) {
+        if (!(this_present_oldTuple && that_present_oldTuple))
           return false;
-        if (!this.relationName.equals(that.relationName))
-          return false;
-      }
-
-      boolean this_present_old_column1 = true && this.isSetOld_column1();
-      boolean that_present_old_column1 = true && that.isSetOld_column1();
-      if (this_present_old_column1 || that_present_old_column1) {
-        if (!(this_present_old_column1 && that_present_old_column1))
-          return false;
-        if (!this.old_column1.equals(that.old_column1))
+        if (!this.oldTuple.equals(that.oldTuple))
           return false;
       }
 
-      boolean this_present_old_column2 = true && this.isSetOld_column2();
-      boolean that_present_old_column2 = true && that.isSetOld_column2();
-      if (this_present_old_column2 || that_present_old_column2) {
-        if (!(this_present_old_column2 && that_present_old_column2))
+      boolean this_present_newTuple = true && this.isSetNewTuple();
+      boolean that_present_newTuple = true && that.isSetNewTuple();
+      if (this_present_newTuple || that_present_newTuple) {
+        if (!(this_present_newTuple && that_present_newTuple))
           return false;
-        if (!this.old_column2.equals(that.old_column2))
-          return false;
-      }
-
-      boolean this_present_new_column1 = true && this.isSetNew_column1();
-      boolean that_present_new_column1 = true && that.isSetNew_column1();
-      if (this_present_new_column1 || that_present_new_column1) {
-        if (!(this_present_new_column1 && that_present_new_column1))
-          return false;
-        if (!this.new_column1.equals(that.new_column1))
-          return false;
-      }
-
-      boolean this_present_new_column2 = true && this.isSetNew_column2();
-      boolean that_present_new_column2 = true && that.isSetNew_column2();
-      if (this_present_new_column2 || that_present_new_column2) {
-        if (!(this_present_new_column2 && that_present_new_column2))
-          return false;
-        if (!this.new_column2.equals(that.new_column2))
+        if (!this.newTuple.equals(that.newTuple))
           return false;
       }
 
@@ -3220,52 +2751,22 @@ public class MondixTeiidChangeService {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetRelationName()).compareTo(other.isSetRelationName());
+      lastComparison = Boolean.valueOf(isSetOldTuple()).compareTo(other.isSetOldTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetRelationName()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.relationName, other.relationName);
+      if (isSetOldTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.oldTuple, other.oldTuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetOld_column1()).compareTo(other.isSetOld_column1());
+      lastComparison = Boolean.valueOf(isSetNewTuple()).compareTo(other.isSetNewTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetOld_column1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.old_column1, other.old_column1);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetOld_column2()).compareTo(other.isSetOld_column2());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetOld_column2()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.old_column2, other.old_column2);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetNew_column1()).compareTo(other.isSetNew_column1());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetNew_column1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.new_column1, other.new_column1);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetNew_column2()).compareTo(other.isSetNew_column2());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetNew_column2()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.new_column2, other.new_column2);
+      if (isSetNewTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.newTuple, other.newTuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -3290,43 +2791,19 @@ public class MondixTeiidChangeService {
       StringBuilder sb = new StringBuilder("performBinaryUpdate_args(");
       boolean first = true;
 
-      sb.append("relationName:");
-      if (this.relationName == null) {
+      sb.append("oldTuple:");
+      if (this.oldTuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.relationName);
+        sb.append(this.oldTuple);
       }
       first = false;
       if (!first) sb.append(", ");
-      sb.append("old_column1:");
-      if (this.old_column1 == null) {
+      sb.append("newTuple:");
+      if (this.newTuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.old_column1);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("old_column2:");
-      if (this.old_column2 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.old_column2);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("new_column1:");
-      if (this.new_column1 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.new_column1);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("new_column2:");
-      if (this.new_column2 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.new_column2);
+        sb.append(this.newTuple);
       }
       first = false;
       sb.append(")");
@@ -3336,6 +2813,12 @@ public class MondixTeiidChangeService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (oldTuple != null) {
+        oldTuple.validate();
+      }
+      if (newTuple != null) {
+        newTuple.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -3372,42 +2855,20 @@ public class MondixTeiidChangeService {
             break;
           }
           switch (schemeField.id) {
-            case 1: // RELATION_NAME
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.relationName = iprot.readString();
-                struct.setRelationNameIsSet(true);
+            case 1: // OLD_TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.oldTuple = new BinaryTuple();
+                struct.oldTuple.read(iprot);
+                struct.setOldTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
-            case 2: // OLD_COLUMN1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.old_column1 = iprot.readString();
-                struct.setOld_column1IsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 3: // OLD_COLUMN2
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.old_column2 = iprot.readString();
-                struct.setOld_column2IsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 4: // NEW_COLUMN1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.new_column1 = iprot.readString();
-                struct.setNew_column1IsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 5: // NEW_COLUMN2
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.new_column2 = iprot.readString();
-                struct.setNew_column2IsSet(true);
+            case 2: // NEW_TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.newTuple = new BinaryTuple();
+                struct.newTuple.read(iprot);
+                struct.setNewTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -3427,29 +2888,14 @@ public class MondixTeiidChangeService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.relationName != null) {
-          oprot.writeFieldBegin(RELATION_NAME_FIELD_DESC);
-          oprot.writeString(struct.relationName);
+        if (struct.oldTuple != null) {
+          oprot.writeFieldBegin(OLD_TUPLE_FIELD_DESC);
+          struct.oldTuple.write(oprot);
           oprot.writeFieldEnd();
         }
-        if (struct.old_column1 != null) {
-          oprot.writeFieldBegin(OLD_COLUMN1_FIELD_DESC);
-          oprot.writeString(struct.old_column1);
-          oprot.writeFieldEnd();
-        }
-        if (struct.old_column2 != null) {
-          oprot.writeFieldBegin(OLD_COLUMN2_FIELD_DESC);
-          oprot.writeString(struct.old_column2);
-          oprot.writeFieldEnd();
-        }
-        if (struct.new_column1 != null) {
-          oprot.writeFieldBegin(NEW_COLUMN1_FIELD_DESC);
-          oprot.writeString(struct.new_column1);
-          oprot.writeFieldEnd();
-        }
-        if (struct.new_column2 != null) {
-          oprot.writeFieldBegin(NEW_COLUMN2_FIELD_DESC);
-          oprot.writeString(struct.new_column2);
+        if (struct.newTuple != null) {
+          oprot.writeFieldBegin(NEW_TUPLE_FIELD_DESC);
+          struct.newTuple.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -3470,62 +2916,34 @@ public class MondixTeiidChangeService {
       public void write(org.apache.thrift.protocol.TProtocol prot, performBinaryUpdate_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetRelationName()) {
+        if (struct.isSetOldTuple()) {
           optionals.set(0);
         }
-        if (struct.isSetOld_column1()) {
+        if (struct.isSetNewTuple()) {
           optionals.set(1);
         }
-        if (struct.isSetOld_column2()) {
-          optionals.set(2);
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetOldTuple()) {
+          struct.oldTuple.write(oprot);
         }
-        if (struct.isSetNew_column1()) {
-          optionals.set(3);
-        }
-        if (struct.isSetNew_column2()) {
-          optionals.set(4);
-        }
-        oprot.writeBitSet(optionals, 5);
-        if (struct.isSetRelationName()) {
-          oprot.writeString(struct.relationName);
-        }
-        if (struct.isSetOld_column1()) {
-          oprot.writeString(struct.old_column1);
-        }
-        if (struct.isSetOld_column2()) {
-          oprot.writeString(struct.old_column2);
-        }
-        if (struct.isSetNew_column1()) {
-          oprot.writeString(struct.new_column1);
-        }
-        if (struct.isSetNew_column2()) {
-          oprot.writeString(struct.new_column2);
+        if (struct.isSetNewTuple()) {
+          struct.newTuple.write(oprot);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, performBinaryUpdate_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(5);
+        BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {
-          struct.relationName = iprot.readString();
-          struct.setRelationNameIsSet(true);
+          struct.oldTuple = new BinaryTuple();
+          struct.oldTuple.read(iprot);
+          struct.setOldTupleIsSet(true);
         }
         if (incoming.get(1)) {
-          struct.old_column1 = iprot.readString();
-          struct.setOld_column1IsSet(true);
-        }
-        if (incoming.get(2)) {
-          struct.old_column2 = iprot.readString();
-          struct.setOld_column2IsSet(true);
-        }
-        if (incoming.get(3)) {
-          struct.new_column1 = iprot.readString();
-          struct.setNew_column1IsSet(true);
-        }
-        if (incoming.get(4)) {
-          struct.new_column2 = iprot.readString();
-          struct.setNew_column2IsSet(true);
+          struct.newTuple = new BinaryTuple();
+          struct.newTuple.read(iprot);
+          struct.setNewTupleIsSet(true);
         }
       }
     }
@@ -3889,8 +3307,7 @@ public class MondixTeiidChangeService {
   public static class performUnaryInsert_args implements org.apache.thrift.TBase<performUnaryInsert_args, performUnaryInsert_args._Fields>, java.io.Serializable, Cloneable, Comparable<performUnaryInsert_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("performUnaryInsert_args");
 
-    private static final org.apache.thrift.protocol.TField RELATION_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("relationName", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField COLUMN1_FIELD_DESC = new org.apache.thrift.protocol.TField("column1", org.apache.thrift.protocol.TType.STRING, (short)2);
+    private static final org.apache.thrift.protocol.TField TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("tuple", org.apache.thrift.protocol.TType.STRUCT, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -3898,13 +3315,11 @@ public class MondixTeiidChangeService {
       schemes.put(TupleScheme.class, new performUnaryInsert_argsTupleSchemeFactory());
     }
 
-    public String relationName; // required
-    public String column1; // required
+    public UnaryTuple tuple; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      RELATION_NAME((short)1, "relationName"),
-      COLUMN1((short)2, "column1");
+      TUPLE((short)1, "tuple");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -3919,10 +3334,8 @@ public class MondixTeiidChangeService {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // RELATION_NAME
-            return RELATION_NAME;
-          case 2: // COLUMN1
-            return COLUMN1;
+          case 1: // TUPLE
+            return TUPLE;
           default:
             return null;
         }
@@ -3966,10 +3379,8 @@ public class MondixTeiidChangeService {
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.RELATION_NAME, new org.apache.thrift.meta_data.FieldMetaData("relationName", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.COLUMN1, new org.apache.thrift.meta_data.FieldMetaData("column1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.TUPLE, new org.apache.thrift.meta_data.FieldMetaData("tuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UnaryTuple.class)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(performUnaryInsert_args.class, metaDataMap);
     }
@@ -3978,23 +3389,18 @@ public class MondixTeiidChangeService {
     }
 
     public performUnaryInsert_args(
-      String relationName,
-      String column1)
+      UnaryTuple tuple)
     {
       this();
-      this.relationName = relationName;
-      this.column1 = column1;
+      this.tuple = tuple;
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public performUnaryInsert_args(performUnaryInsert_args other) {
-      if (other.isSetRelationName()) {
-        this.relationName = other.relationName;
-      }
-      if (other.isSetColumn1()) {
-        this.column1 = other.column1;
+      if (other.isSetTuple()) {
+        this.tuple = new UnaryTuple(other.tuple);
       }
     }
 
@@ -4004,73 +3410,40 @@ public class MondixTeiidChangeService {
 
     @Override
     public void clear() {
-      this.relationName = null;
-      this.column1 = null;
+      this.tuple = null;
     }
 
-    public String getRelationName() {
-      return this.relationName;
+    public UnaryTuple getTuple() {
+      return this.tuple;
     }
 
-    public performUnaryInsert_args setRelationName(String relationName) {
-      this.relationName = relationName;
+    public performUnaryInsert_args setTuple(UnaryTuple tuple) {
+      this.tuple = tuple;
       return this;
     }
 
-    public void unsetRelationName() {
-      this.relationName = null;
+    public void unsetTuple() {
+      this.tuple = null;
     }
 
-    /** Returns true if field relationName is set (has been assigned a value) and false otherwise */
-    public boolean isSetRelationName() {
-      return this.relationName != null;
+    /** Returns true if field tuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetTuple() {
+      return this.tuple != null;
     }
 
-    public void setRelationNameIsSet(boolean value) {
+    public void setTupleIsSet(boolean value) {
       if (!value) {
-        this.relationName = null;
-      }
-    }
-
-    public String getColumn1() {
-      return this.column1;
-    }
-
-    public performUnaryInsert_args setColumn1(String column1) {
-      this.column1 = column1;
-      return this;
-    }
-
-    public void unsetColumn1() {
-      this.column1 = null;
-    }
-
-    /** Returns true if field column1 is set (has been assigned a value) and false otherwise */
-    public boolean isSetColumn1() {
-      return this.column1 != null;
-    }
-
-    public void setColumn1IsSet(boolean value) {
-      if (!value) {
-        this.column1 = null;
+        this.tuple = null;
       }
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case RELATION_NAME:
+      case TUPLE:
         if (value == null) {
-          unsetRelationName();
+          unsetTuple();
         } else {
-          setRelationName((String)value);
-        }
-        break;
-
-      case COLUMN1:
-        if (value == null) {
-          unsetColumn1();
-        } else {
-          setColumn1((String)value);
+          setTuple((UnaryTuple)value);
         }
         break;
 
@@ -4079,11 +3452,8 @@ public class MondixTeiidChangeService {
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case RELATION_NAME:
-        return getRelationName();
-
-      case COLUMN1:
-        return getColumn1();
+      case TUPLE:
+        return getTuple();
 
       }
       throw new IllegalStateException();
@@ -4096,10 +3466,8 @@ public class MondixTeiidChangeService {
       }
 
       switch (field) {
-      case RELATION_NAME:
-        return isSetRelationName();
-      case COLUMN1:
-        return isSetColumn1();
+      case TUPLE:
+        return isSetTuple();
       }
       throw new IllegalStateException();
     }
@@ -4117,21 +3485,12 @@ public class MondixTeiidChangeService {
       if (that == null)
         return false;
 
-      boolean this_present_relationName = true && this.isSetRelationName();
-      boolean that_present_relationName = true && that.isSetRelationName();
-      if (this_present_relationName || that_present_relationName) {
-        if (!(this_present_relationName && that_present_relationName))
+      boolean this_present_tuple = true && this.isSetTuple();
+      boolean that_present_tuple = true && that.isSetTuple();
+      if (this_present_tuple || that_present_tuple) {
+        if (!(this_present_tuple && that_present_tuple))
           return false;
-        if (!this.relationName.equals(that.relationName))
-          return false;
-      }
-
-      boolean this_present_column1 = true && this.isSetColumn1();
-      boolean that_present_column1 = true && that.isSetColumn1();
-      if (this_present_column1 || that_present_column1) {
-        if (!(this_present_column1 && that_present_column1))
-          return false;
-        if (!this.column1.equals(that.column1))
+        if (!this.tuple.equals(that.tuple))
           return false;
       }
 
@@ -4151,22 +3510,12 @@ public class MondixTeiidChangeService {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetRelationName()).compareTo(other.isSetRelationName());
+      lastComparison = Boolean.valueOf(isSetTuple()).compareTo(other.isSetTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetRelationName()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.relationName, other.relationName);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetColumn1()).compareTo(other.isSetColumn1());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetColumn1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.column1, other.column1);
+      if (isSetTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.tuple, other.tuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -4191,19 +3540,11 @@ public class MondixTeiidChangeService {
       StringBuilder sb = new StringBuilder("performUnaryInsert_args(");
       boolean first = true;
 
-      sb.append("relationName:");
-      if (this.relationName == null) {
+      sb.append("tuple:");
+      if (this.tuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.relationName);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("column1:");
-      if (this.column1 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.column1);
+        sb.append(this.tuple);
       }
       first = false;
       sb.append(")");
@@ -4213,6 +3554,9 @@ public class MondixTeiidChangeService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (tuple != null) {
+        tuple.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -4249,18 +3593,11 @@ public class MondixTeiidChangeService {
             break;
           }
           switch (schemeField.id) {
-            case 1: // RELATION_NAME
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.relationName = iprot.readString();
-                struct.setRelationNameIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // COLUMN1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.column1 = iprot.readString();
-                struct.setColumn1IsSet(true);
+            case 1: // TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.tuple = new UnaryTuple();
+                struct.tuple.read(iprot);
+                struct.setTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -4280,14 +3617,9 @@ public class MondixTeiidChangeService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.relationName != null) {
-          oprot.writeFieldBegin(RELATION_NAME_FIELD_DESC);
-          oprot.writeString(struct.relationName);
-          oprot.writeFieldEnd();
-        }
-        if (struct.column1 != null) {
-          oprot.writeFieldBegin(COLUMN1_FIELD_DESC);
-          oprot.writeString(struct.column1);
+        if (struct.tuple != null) {
+          oprot.writeFieldBegin(TUPLE_FIELD_DESC);
+          struct.tuple.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -4308,32 +3640,23 @@ public class MondixTeiidChangeService {
       public void write(org.apache.thrift.protocol.TProtocol prot, performUnaryInsert_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetRelationName()) {
+        if (struct.isSetTuple()) {
           optionals.set(0);
         }
-        if (struct.isSetColumn1()) {
-          optionals.set(1);
-        }
-        oprot.writeBitSet(optionals, 2);
-        if (struct.isSetRelationName()) {
-          oprot.writeString(struct.relationName);
-        }
-        if (struct.isSetColumn1()) {
-          oprot.writeString(struct.column1);
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetTuple()) {
+          struct.tuple.write(oprot);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, performUnaryInsert_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(2);
+        BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
-          struct.relationName = iprot.readString();
-          struct.setRelationNameIsSet(true);
-        }
-        if (incoming.get(1)) {
-          struct.column1 = iprot.readString();
-          struct.setColumn1IsSet(true);
+          struct.tuple = new UnaryTuple();
+          struct.tuple.read(iprot);
+          struct.setTupleIsSet(true);
         }
       }
     }
@@ -4697,8 +4020,7 @@ public class MondixTeiidChangeService {
   public static class performUnaryDelete_args implements org.apache.thrift.TBase<performUnaryDelete_args, performUnaryDelete_args._Fields>, java.io.Serializable, Cloneable, Comparable<performUnaryDelete_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("performUnaryDelete_args");
 
-    private static final org.apache.thrift.protocol.TField RELATION_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("relationName", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField COLUMN1_FIELD_DESC = new org.apache.thrift.protocol.TField("column1", org.apache.thrift.protocol.TType.STRING, (short)2);
+    private static final org.apache.thrift.protocol.TField TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("tuple", org.apache.thrift.protocol.TType.STRUCT, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -4706,13 +4028,11 @@ public class MondixTeiidChangeService {
       schemes.put(TupleScheme.class, new performUnaryDelete_argsTupleSchemeFactory());
     }
 
-    public String relationName; // required
-    public String column1; // required
+    public UnaryTuple tuple; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      RELATION_NAME((short)1, "relationName"),
-      COLUMN1((short)2, "column1");
+      TUPLE((short)1, "tuple");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -4727,10 +4047,8 @@ public class MondixTeiidChangeService {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // RELATION_NAME
-            return RELATION_NAME;
-          case 2: // COLUMN1
-            return COLUMN1;
+          case 1: // TUPLE
+            return TUPLE;
           default:
             return null;
         }
@@ -4774,10 +4092,8 @@ public class MondixTeiidChangeService {
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.RELATION_NAME, new org.apache.thrift.meta_data.FieldMetaData("relationName", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.COLUMN1, new org.apache.thrift.meta_data.FieldMetaData("column1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.TUPLE, new org.apache.thrift.meta_data.FieldMetaData("tuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UnaryTuple.class)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(performUnaryDelete_args.class, metaDataMap);
     }
@@ -4786,23 +4102,18 @@ public class MondixTeiidChangeService {
     }
 
     public performUnaryDelete_args(
-      String relationName,
-      String column1)
+      UnaryTuple tuple)
     {
       this();
-      this.relationName = relationName;
-      this.column1 = column1;
+      this.tuple = tuple;
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public performUnaryDelete_args(performUnaryDelete_args other) {
-      if (other.isSetRelationName()) {
-        this.relationName = other.relationName;
-      }
-      if (other.isSetColumn1()) {
-        this.column1 = other.column1;
+      if (other.isSetTuple()) {
+        this.tuple = new UnaryTuple(other.tuple);
       }
     }
 
@@ -4812,73 +4123,40 @@ public class MondixTeiidChangeService {
 
     @Override
     public void clear() {
-      this.relationName = null;
-      this.column1 = null;
+      this.tuple = null;
     }
 
-    public String getRelationName() {
-      return this.relationName;
+    public UnaryTuple getTuple() {
+      return this.tuple;
     }
 
-    public performUnaryDelete_args setRelationName(String relationName) {
-      this.relationName = relationName;
+    public performUnaryDelete_args setTuple(UnaryTuple tuple) {
+      this.tuple = tuple;
       return this;
     }
 
-    public void unsetRelationName() {
-      this.relationName = null;
+    public void unsetTuple() {
+      this.tuple = null;
     }
 
-    /** Returns true if field relationName is set (has been assigned a value) and false otherwise */
-    public boolean isSetRelationName() {
-      return this.relationName != null;
+    /** Returns true if field tuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetTuple() {
+      return this.tuple != null;
     }
 
-    public void setRelationNameIsSet(boolean value) {
+    public void setTupleIsSet(boolean value) {
       if (!value) {
-        this.relationName = null;
-      }
-    }
-
-    public String getColumn1() {
-      return this.column1;
-    }
-
-    public performUnaryDelete_args setColumn1(String column1) {
-      this.column1 = column1;
-      return this;
-    }
-
-    public void unsetColumn1() {
-      this.column1 = null;
-    }
-
-    /** Returns true if field column1 is set (has been assigned a value) and false otherwise */
-    public boolean isSetColumn1() {
-      return this.column1 != null;
-    }
-
-    public void setColumn1IsSet(boolean value) {
-      if (!value) {
-        this.column1 = null;
+        this.tuple = null;
       }
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case RELATION_NAME:
+      case TUPLE:
         if (value == null) {
-          unsetRelationName();
+          unsetTuple();
         } else {
-          setRelationName((String)value);
-        }
-        break;
-
-      case COLUMN1:
-        if (value == null) {
-          unsetColumn1();
-        } else {
-          setColumn1((String)value);
+          setTuple((UnaryTuple)value);
         }
         break;
 
@@ -4887,11 +4165,8 @@ public class MondixTeiidChangeService {
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case RELATION_NAME:
-        return getRelationName();
-
-      case COLUMN1:
-        return getColumn1();
+      case TUPLE:
+        return getTuple();
 
       }
       throw new IllegalStateException();
@@ -4904,10 +4179,8 @@ public class MondixTeiidChangeService {
       }
 
       switch (field) {
-      case RELATION_NAME:
-        return isSetRelationName();
-      case COLUMN1:
-        return isSetColumn1();
+      case TUPLE:
+        return isSetTuple();
       }
       throw new IllegalStateException();
     }
@@ -4925,21 +4198,12 @@ public class MondixTeiidChangeService {
       if (that == null)
         return false;
 
-      boolean this_present_relationName = true && this.isSetRelationName();
-      boolean that_present_relationName = true && that.isSetRelationName();
-      if (this_present_relationName || that_present_relationName) {
-        if (!(this_present_relationName && that_present_relationName))
+      boolean this_present_tuple = true && this.isSetTuple();
+      boolean that_present_tuple = true && that.isSetTuple();
+      if (this_present_tuple || that_present_tuple) {
+        if (!(this_present_tuple && that_present_tuple))
           return false;
-        if (!this.relationName.equals(that.relationName))
-          return false;
-      }
-
-      boolean this_present_column1 = true && this.isSetColumn1();
-      boolean that_present_column1 = true && that.isSetColumn1();
-      if (this_present_column1 || that_present_column1) {
-        if (!(this_present_column1 && that_present_column1))
-          return false;
-        if (!this.column1.equals(that.column1))
+        if (!this.tuple.equals(that.tuple))
           return false;
       }
 
@@ -4959,22 +4223,12 @@ public class MondixTeiidChangeService {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetRelationName()).compareTo(other.isSetRelationName());
+      lastComparison = Boolean.valueOf(isSetTuple()).compareTo(other.isSetTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetRelationName()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.relationName, other.relationName);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetColumn1()).compareTo(other.isSetColumn1());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetColumn1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.column1, other.column1);
+      if (isSetTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.tuple, other.tuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -4999,19 +4253,11 @@ public class MondixTeiidChangeService {
       StringBuilder sb = new StringBuilder("performUnaryDelete_args(");
       boolean first = true;
 
-      sb.append("relationName:");
-      if (this.relationName == null) {
+      sb.append("tuple:");
+      if (this.tuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.relationName);
-      }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("column1:");
-      if (this.column1 == null) {
-        sb.append("null");
-      } else {
-        sb.append(this.column1);
+        sb.append(this.tuple);
       }
       first = false;
       sb.append(")");
@@ -5021,6 +4267,9 @@ public class MondixTeiidChangeService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (tuple != null) {
+        tuple.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -5057,18 +4306,11 @@ public class MondixTeiidChangeService {
             break;
           }
           switch (schemeField.id) {
-            case 1: // RELATION_NAME
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.relationName = iprot.readString();
-                struct.setRelationNameIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // COLUMN1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.column1 = iprot.readString();
-                struct.setColumn1IsSet(true);
+            case 1: // TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.tuple = new UnaryTuple();
+                struct.tuple.read(iprot);
+                struct.setTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -5088,14 +4330,9 @@ public class MondixTeiidChangeService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.relationName != null) {
-          oprot.writeFieldBegin(RELATION_NAME_FIELD_DESC);
-          oprot.writeString(struct.relationName);
-          oprot.writeFieldEnd();
-        }
-        if (struct.column1 != null) {
-          oprot.writeFieldBegin(COLUMN1_FIELD_DESC);
-          oprot.writeString(struct.column1);
+        if (struct.tuple != null) {
+          oprot.writeFieldBegin(TUPLE_FIELD_DESC);
+          struct.tuple.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -5116,32 +4353,23 @@ public class MondixTeiidChangeService {
       public void write(org.apache.thrift.protocol.TProtocol prot, performUnaryDelete_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetRelationName()) {
+        if (struct.isSetTuple()) {
           optionals.set(0);
         }
-        if (struct.isSetColumn1()) {
-          optionals.set(1);
-        }
-        oprot.writeBitSet(optionals, 2);
-        if (struct.isSetRelationName()) {
-          oprot.writeString(struct.relationName);
-        }
-        if (struct.isSetColumn1()) {
-          oprot.writeString(struct.column1);
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetTuple()) {
+          struct.tuple.write(oprot);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, performUnaryDelete_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(2);
+        BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
-          struct.relationName = iprot.readString();
-          struct.setRelationNameIsSet(true);
-        }
-        if (incoming.get(1)) {
-          struct.column1 = iprot.readString();
-          struct.setColumn1IsSet(true);
+          struct.tuple = new UnaryTuple();
+          struct.tuple.read(iprot);
+          struct.setTupleIsSet(true);
         }
       }
     }
@@ -5505,8 +4733,8 @@ public class MondixTeiidChangeService {
   public static class performUnaryUpdate_args implements org.apache.thrift.TBase<performUnaryUpdate_args, performUnaryUpdate_args._Fields>, java.io.Serializable, Cloneable, Comparable<performUnaryUpdate_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("performUnaryUpdate_args");
 
-    private static final org.apache.thrift.protocol.TField RELATION_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("relationName", org.apache.thrift.protocol.TType.STRING, (short)1);
-    private static final org.apache.thrift.protocol.TField COLUMN1_FIELD_DESC = new org.apache.thrift.protocol.TField("column1", org.apache.thrift.protocol.TType.STRING, (short)2);
+    private static final org.apache.thrift.protocol.TField OLD_TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("oldTuple", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+    private static final org.apache.thrift.protocol.TField NEW_TUPLE_FIELD_DESC = new org.apache.thrift.protocol.TField("newTuple", org.apache.thrift.protocol.TType.STRUCT, (short)2);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -5514,13 +4742,13 @@ public class MondixTeiidChangeService {
       schemes.put(TupleScheme.class, new performUnaryUpdate_argsTupleSchemeFactory());
     }
 
-    public String relationName; // required
-    public String column1; // required
+    public UnaryTuple oldTuple; // required
+    public UnaryTuple newTuple; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      RELATION_NAME((short)1, "relationName"),
-      COLUMN1((short)2, "column1");
+      OLD_TUPLE((short)1, "oldTuple"),
+      NEW_TUPLE((short)2, "newTuple");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -5535,10 +4763,10 @@ public class MondixTeiidChangeService {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // RELATION_NAME
-            return RELATION_NAME;
-          case 2: // COLUMN1
-            return COLUMN1;
+          case 1: // OLD_TUPLE
+            return OLD_TUPLE;
+          case 2: // NEW_TUPLE
+            return NEW_TUPLE;
           default:
             return null;
         }
@@ -5582,10 +4810,10 @@ public class MondixTeiidChangeService {
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.RELATION_NAME, new org.apache.thrift.meta_data.FieldMetaData("relationName", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-      tmpMap.put(_Fields.COLUMN1, new org.apache.thrift.meta_data.FieldMetaData("column1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.OLD_TUPLE, new org.apache.thrift.meta_data.FieldMetaData("oldTuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UnaryTuple.class)));
+      tmpMap.put(_Fields.NEW_TUPLE, new org.apache.thrift.meta_data.FieldMetaData("newTuple", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, UnaryTuple.class)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(performUnaryUpdate_args.class, metaDataMap);
     }
@@ -5594,23 +4822,23 @@ public class MondixTeiidChangeService {
     }
 
     public performUnaryUpdate_args(
-      String relationName,
-      String column1)
+      UnaryTuple oldTuple,
+      UnaryTuple newTuple)
     {
       this();
-      this.relationName = relationName;
-      this.column1 = column1;
+      this.oldTuple = oldTuple;
+      this.newTuple = newTuple;
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public performUnaryUpdate_args(performUnaryUpdate_args other) {
-      if (other.isSetRelationName()) {
-        this.relationName = other.relationName;
+      if (other.isSetOldTuple()) {
+        this.oldTuple = new UnaryTuple(other.oldTuple);
       }
-      if (other.isSetColumn1()) {
-        this.column1 = other.column1;
+      if (other.isSetNewTuple()) {
+        this.newTuple = new UnaryTuple(other.newTuple);
       }
     }
 
@@ -5620,73 +4848,73 @@ public class MondixTeiidChangeService {
 
     @Override
     public void clear() {
-      this.relationName = null;
-      this.column1 = null;
+      this.oldTuple = null;
+      this.newTuple = null;
     }
 
-    public String getRelationName() {
-      return this.relationName;
+    public UnaryTuple getOldTuple() {
+      return this.oldTuple;
     }
 
-    public performUnaryUpdate_args setRelationName(String relationName) {
-      this.relationName = relationName;
+    public performUnaryUpdate_args setOldTuple(UnaryTuple oldTuple) {
+      this.oldTuple = oldTuple;
       return this;
     }
 
-    public void unsetRelationName() {
-      this.relationName = null;
+    public void unsetOldTuple() {
+      this.oldTuple = null;
     }
 
-    /** Returns true if field relationName is set (has been assigned a value) and false otherwise */
-    public boolean isSetRelationName() {
-      return this.relationName != null;
+    /** Returns true if field oldTuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetOldTuple() {
+      return this.oldTuple != null;
     }
 
-    public void setRelationNameIsSet(boolean value) {
+    public void setOldTupleIsSet(boolean value) {
       if (!value) {
-        this.relationName = null;
+        this.oldTuple = null;
       }
     }
 
-    public String getColumn1() {
-      return this.column1;
+    public UnaryTuple getNewTuple() {
+      return this.newTuple;
     }
 
-    public performUnaryUpdate_args setColumn1(String column1) {
-      this.column1 = column1;
+    public performUnaryUpdate_args setNewTuple(UnaryTuple newTuple) {
+      this.newTuple = newTuple;
       return this;
     }
 
-    public void unsetColumn1() {
-      this.column1 = null;
+    public void unsetNewTuple() {
+      this.newTuple = null;
     }
 
-    /** Returns true if field column1 is set (has been assigned a value) and false otherwise */
-    public boolean isSetColumn1() {
-      return this.column1 != null;
+    /** Returns true if field newTuple is set (has been assigned a value) and false otherwise */
+    public boolean isSetNewTuple() {
+      return this.newTuple != null;
     }
 
-    public void setColumn1IsSet(boolean value) {
+    public void setNewTupleIsSet(boolean value) {
       if (!value) {
-        this.column1 = null;
+        this.newTuple = null;
       }
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case RELATION_NAME:
+      case OLD_TUPLE:
         if (value == null) {
-          unsetRelationName();
+          unsetOldTuple();
         } else {
-          setRelationName((String)value);
+          setOldTuple((UnaryTuple)value);
         }
         break;
 
-      case COLUMN1:
+      case NEW_TUPLE:
         if (value == null) {
-          unsetColumn1();
+          unsetNewTuple();
         } else {
-          setColumn1((String)value);
+          setNewTuple((UnaryTuple)value);
         }
         break;
 
@@ -5695,11 +4923,11 @@ public class MondixTeiidChangeService {
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case RELATION_NAME:
-        return getRelationName();
+      case OLD_TUPLE:
+        return getOldTuple();
 
-      case COLUMN1:
-        return getColumn1();
+      case NEW_TUPLE:
+        return getNewTuple();
 
       }
       throw new IllegalStateException();
@@ -5712,10 +4940,10 @@ public class MondixTeiidChangeService {
       }
 
       switch (field) {
-      case RELATION_NAME:
-        return isSetRelationName();
-      case COLUMN1:
-        return isSetColumn1();
+      case OLD_TUPLE:
+        return isSetOldTuple();
+      case NEW_TUPLE:
+        return isSetNewTuple();
       }
       throw new IllegalStateException();
     }
@@ -5733,21 +4961,21 @@ public class MondixTeiidChangeService {
       if (that == null)
         return false;
 
-      boolean this_present_relationName = true && this.isSetRelationName();
-      boolean that_present_relationName = true && that.isSetRelationName();
-      if (this_present_relationName || that_present_relationName) {
-        if (!(this_present_relationName && that_present_relationName))
+      boolean this_present_oldTuple = true && this.isSetOldTuple();
+      boolean that_present_oldTuple = true && that.isSetOldTuple();
+      if (this_present_oldTuple || that_present_oldTuple) {
+        if (!(this_present_oldTuple && that_present_oldTuple))
           return false;
-        if (!this.relationName.equals(that.relationName))
+        if (!this.oldTuple.equals(that.oldTuple))
           return false;
       }
 
-      boolean this_present_column1 = true && this.isSetColumn1();
-      boolean that_present_column1 = true && that.isSetColumn1();
-      if (this_present_column1 || that_present_column1) {
-        if (!(this_present_column1 && that_present_column1))
+      boolean this_present_newTuple = true && this.isSetNewTuple();
+      boolean that_present_newTuple = true && that.isSetNewTuple();
+      if (this_present_newTuple || that_present_newTuple) {
+        if (!(this_present_newTuple && that_present_newTuple))
           return false;
-        if (!this.column1.equals(that.column1))
+        if (!this.newTuple.equals(that.newTuple))
           return false;
       }
 
@@ -5767,22 +4995,22 @@ public class MondixTeiidChangeService {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetRelationName()).compareTo(other.isSetRelationName());
+      lastComparison = Boolean.valueOf(isSetOldTuple()).compareTo(other.isSetOldTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetRelationName()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.relationName, other.relationName);
+      if (isSetOldTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.oldTuple, other.oldTuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetColumn1()).compareTo(other.isSetColumn1());
+      lastComparison = Boolean.valueOf(isSetNewTuple()).compareTo(other.isSetNewTuple());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetColumn1()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.column1, other.column1);
+      if (isSetNewTuple()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.newTuple, other.newTuple);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -5807,19 +5035,19 @@ public class MondixTeiidChangeService {
       StringBuilder sb = new StringBuilder("performUnaryUpdate_args(");
       boolean first = true;
 
-      sb.append("relationName:");
-      if (this.relationName == null) {
+      sb.append("oldTuple:");
+      if (this.oldTuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.relationName);
+        sb.append(this.oldTuple);
       }
       first = false;
       if (!first) sb.append(", ");
-      sb.append("column1:");
-      if (this.column1 == null) {
+      sb.append("newTuple:");
+      if (this.newTuple == null) {
         sb.append("null");
       } else {
-        sb.append(this.column1);
+        sb.append(this.newTuple);
       }
       first = false;
       sb.append(")");
@@ -5829,6 +5057,12 @@ public class MondixTeiidChangeService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (oldTuple != null) {
+        oldTuple.validate();
+      }
+      if (newTuple != null) {
+        newTuple.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -5865,18 +5099,20 @@ public class MondixTeiidChangeService {
             break;
           }
           switch (schemeField.id) {
-            case 1: // RELATION_NAME
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.relationName = iprot.readString();
-                struct.setRelationNameIsSet(true);
+            case 1: // OLD_TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.oldTuple = new UnaryTuple();
+                struct.oldTuple.read(iprot);
+                struct.setOldTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
-            case 2: // COLUMN1
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.column1 = iprot.readString();
-                struct.setColumn1IsSet(true);
+            case 2: // NEW_TUPLE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.newTuple = new UnaryTuple();
+                struct.newTuple.read(iprot);
+                struct.setNewTupleIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -5896,14 +5132,14 @@ public class MondixTeiidChangeService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.relationName != null) {
-          oprot.writeFieldBegin(RELATION_NAME_FIELD_DESC);
-          oprot.writeString(struct.relationName);
+        if (struct.oldTuple != null) {
+          oprot.writeFieldBegin(OLD_TUPLE_FIELD_DESC);
+          struct.oldTuple.write(oprot);
           oprot.writeFieldEnd();
         }
-        if (struct.column1 != null) {
-          oprot.writeFieldBegin(COLUMN1_FIELD_DESC);
-          oprot.writeString(struct.column1);
+        if (struct.newTuple != null) {
+          oprot.writeFieldBegin(NEW_TUPLE_FIELD_DESC);
+          struct.newTuple.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -5924,18 +5160,18 @@ public class MondixTeiidChangeService {
       public void write(org.apache.thrift.protocol.TProtocol prot, performUnaryUpdate_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetRelationName()) {
+        if (struct.isSetOldTuple()) {
           optionals.set(0);
         }
-        if (struct.isSetColumn1()) {
+        if (struct.isSetNewTuple()) {
           optionals.set(1);
         }
         oprot.writeBitSet(optionals, 2);
-        if (struct.isSetRelationName()) {
-          oprot.writeString(struct.relationName);
+        if (struct.isSetOldTuple()) {
+          struct.oldTuple.write(oprot);
         }
-        if (struct.isSetColumn1()) {
-          oprot.writeString(struct.column1);
+        if (struct.isSetNewTuple()) {
+          struct.newTuple.write(oprot);
         }
       }
 
@@ -5944,12 +5180,14 @@ public class MondixTeiidChangeService {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {
-          struct.relationName = iprot.readString();
-          struct.setRelationNameIsSet(true);
+          struct.oldTuple = new UnaryTuple();
+          struct.oldTuple.read(iprot);
+          struct.setOldTupleIsSet(true);
         }
         if (incoming.get(1)) {
-          struct.column1 = iprot.readString();
-          struct.setColumn1IsSet(true);
+          struct.newTuple = new UnaryTuple();
+          struct.newTuple.read(iprot);
+          struct.setNewTupleIsSet(true);
         }
       }
     }
@@ -6303,6 +5541,714 @@ public class MondixTeiidChangeService {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           struct.success = iprot.readI32();
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class getMatchesCount_args implements org.apache.thrift.TBase<getMatchesCount_args, getMatchesCount_args._Fields>, java.io.Serializable, Cloneable, Comparable<getMatchesCount_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getMatchesCount_args");
+
+    private static final org.apache.thrift.protocol.TField QUERY_FIELD_DESC = new org.apache.thrift.protocol.TField("query", org.apache.thrift.protocol.TType.STRING, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new getMatchesCount_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new getMatchesCount_argsTupleSchemeFactory());
+    }
+
+    public String query; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      QUERY((short)1, "query");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // QUERY
+            return QUERY;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.QUERY, new org.apache.thrift.meta_data.FieldMetaData("query", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getMatchesCount_args.class, metaDataMap);
+    }
+
+    public getMatchesCount_args() {
+    }
+
+    public getMatchesCount_args(
+      String query)
+    {
+      this();
+      this.query = query;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getMatchesCount_args(getMatchesCount_args other) {
+      if (other.isSetQuery()) {
+        this.query = other.query;
+      }
+    }
+
+    public getMatchesCount_args deepCopy() {
+      return new getMatchesCount_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.query = null;
+    }
+
+    public String getQuery() {
+      return this.query;
+    }
+
+    public getMatchesCount_args setQuery(String query) {
+      this.query = query;
+      return this;
+    }
+
+    public void unsetQuery() {
+      this.query = null;
+    }
+
+    /** Returns true if field query is set (has been assigned a value) and false otherwise */
+    public boolean isSetQuery() {
+      return this.query != null;
+    }
+
+    public void setQueryIsSet(boolean value) {
+      if (!value) {
+        this.query = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case QUERY:
+        if (value == null) {
+          unsetQuery();
+        } else {
+          setQuery((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case QUERY:
+        return getQuery();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case QUERY:
+        return isSetQuery();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getMatchesCount_args)
+        return this.equals((getMatchesCount_args)that);
+      return false;
+    }
+
+    public boolean equals(getMatchesCount_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_query = true && this.isSetQuery();
+      boolean that_present_query = true && that.isSetQuery();
+      if (this_present_query || that_present_query) {
+        if (!(this_present_query && that_present_query))
+          return false;
+        if (!this.query.equals(that.query))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(getMatchesCount_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetQuery()).compareTo(other.isSetQuery());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetQuery()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.query, other.query);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getMatchesCount_args(");
+      boolean first = true;
+
+      sb.append("query:");
+      if (this.query == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.query);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getMatchesCount_argsStandardSchemeFactory implements SchemeFactory {
+      public getMatchesCount_argsStandardScheme getScheme() {
+        return new getMatchesCount_argsStandardScheme();
+      }
+    }
+
+    private static class getMatchesCount_argsStandardScheme extends StandardScheme<getMatchesCount_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getMatchesCount_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // QUERY
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.query = iprot.readString();
+                struct.setQueryIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getMatchesCount_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.query != null) {
+          oprot.writeFieldBegin(QUERY_FIELD_DESC);
+          oprot.writeString(struct.query);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getMatchesCount_argsTupleSchemeFactory implements SchemeFactory {
+      public getMatchesCount_argsTupleScheme getScheme() {
+        return new getMatchesCount_argsTupleScheme();
+      }
+    }
+
+    private static class getMatchesCount_argsTupleScheme extends TupleScheme<getMatchesCount_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getMatchesCount_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetQuery()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetQuery()) {
+          oprot.writeString(struct.query);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getMatchesCount_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.query = iprot.readString();
+          struct.setQueryIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class getMatchesCount_result implements org.apache.thrift.TBase<getMatchesCount_result, getMatchesCount_result._Fields>, java.io.Serializable, Cloneable, Comparable<getMatchesCount_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getMatchesCount_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.I64, (short)0);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new getMatchesCount_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new getMatchesCount_resultTupleSchemeFactory());
+    }
+
+    public long success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __SUCCESS_ISSET_ID = 0;
+    private byte __isset_bitfield = 0;
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64          , "long")));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getMatchesCount_result.class, metaDataMap);
+    }
+
+    public getMatchesCount_result() {
+    }
+
+    public getMatchesCount_result(
+      long success)
+    {
+      this();
+      this.success = success;
+      setSuccessIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public getMatchesCount_result(getMatchesCount_result other) {
+      __isset_bitfield = other.__isset_bitfield;
+      this.success = other.success;
+    }
+
+    public getMatchesCount_result deepCopy() {
+      return new getMatchesCount_result(this);
+    }
+
+    @Override
+    public void clear() {
+      setSuccessIsSet(false);
+      this.success = 0;
+    }
+
+    public long getSuccess() {
+      return this.success;
+    }
+
+    public getMatchesCount_result setSuccess(long success) {
+      this.success = success;
+      setSuccessIsSet(true);
+      return this;
+    }
+
+    public void unsetSuccess() {
+      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __SUCCESS_ISSET_ID);
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return EncodingUtils.testBit(__isset_bitfield, __SUCCESS_ISSET_ID);
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __SUCCESS_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((Long)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return Long.valueOf(getSuccess());
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof getMatchesCount_result)
+        return this.equals((getMatchesCount_result)that);
+      return false;
+    }
+
+    public boolean equals(getMatchesCount_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true;
+      boolean that_present_success = true;
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (this.success != that.success)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(getMatchesCount_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("getMatchesCount_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      sb.append(this.success);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+        __isset_bitfield = 0;
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class getMatchesCount_resultStandardSchemeFactory implements SchemeFactory {
+      public getMatchesCount_resultStandardScheme getScheme() {
+        return new getMatchesCount_resultStandardScheme();
+      }
+    }
+
+    private static class getMatchesCount_resultStandardScheme extends StandardScheme<getMatchesCount_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, getMatchesCount_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+                struct.success = iprot.readI64();
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, getMatchesCount_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.isSetSuccess()) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          oprot.writeI64(struct.success);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class getMatchesCount_resultTupleSchemeFactory implements SchemeFactory {
+      public getMatchesCount_resultTupleScheme getScheme() {
+        return new getMatchesCount_resultTupleScheme();
+      }
+    }
+
+    private static class getMatchesCount_resultTupleScheme extends TupleScheme<getMatchesCount_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, getMatchesCount_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          oprot.writeI64(struct.success);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, getMatchesCount_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = iprot.readI64();
           struct.setSuccessIsSet(true);
         }
       }

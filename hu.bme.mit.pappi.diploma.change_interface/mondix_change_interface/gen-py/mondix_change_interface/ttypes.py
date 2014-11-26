@@ -16,3 +16,195 @@ except:
   fastbinary = None
 
 
+
+class UnaryTuple:
+  """
+  Attributes:
+   - relationName
+   - column
+   - value
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.STRING, 'relationName', None, None, ), # 1
+    (2, TType.STRING, 'column', None, None, ), # 2
+    (3, TType.STRING, 'value', None, None, ), # 3
+  )
+
+  def __init__(self, relationName=None, column=None, value=None,):
+    self.relationName = relationName
+    self.column = column
+    self.value = value
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.STRING:
+          self.relationName = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.STRING:
+          self.column = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.STRING:
+          self.value = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('UnaryTuple')
+    if self.relationName is not None:
+      oprot.writeFieldBegin('relationName', TType.STRING, 1)
+      oprot.writeString(self.relationName)
+      oprot.writeFieldEnd()
+    if self.column is not None:
+      oprot.writeFieldBegin('column', TType.STRING, 2)
+      oprot.writeString(self.column)
+      oprot.writeFieldEnd()
+    if self.value is not None:
+      oprot.writeFieldBegin('value', TType.STRING, 3)
+      oprot.writeString(self.value)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def validate(self):
+    return
+
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class BinaryTuple:
+  """
+  Attributes:
+   - relationName
+   - column1
+   - value1
+   - column2
+   - value2
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.STRING, 'relationName', None, None, ), # 1
+    (2, TType.STRING, 'column1', None, None, ), # 2
+    (3, TType.STRING, 'value1', None, None, ), # 3
+    (4, TType.STRING, 'column2', None, None, ), # 4
+    (5, TType.STRING, 'value2', None, None, ), # 5
+  )
+
+  def __init__(self, relationName=None, column1=None, value1=None, column2=None, value2=None,):
+    self.relationName = relationName
+    self.column1 = column1
+    self.value1 = value1
+    self.column2 = column2
+    self.value2 = value2
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.STRING:
+          self.relationName = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.STRING:
+          self.column1 = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.STRING:
+          self.value1 = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 4:
+        if ftype == TType.STRING:
+          self.column2 = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      elif fid == 5:
+        if ftype == TType.STRING:
+          self.value2 = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('BinaryTuple')
+    if self.relationName is not None:
+      oprot.writeFieldBegin('relationName', TType.STRING, 1)
+      oprot.writeString(self.relationName)
+      oprot.writeFieldEnd()
+    if self.column1 is not None:
+      oprot.writeFieldBegin('column1', TType.STRING, 2)
+      oprot.writeString(self.column1)
+      oprot.writeFieldEnd()
+    if self.value1 is not None:
+      oprot.writeFieldBegin('value1', TType.STRING, 3)
+      oprot.writeString(self.value1)
+      oprot.writeFieldEnd()
+    if self.column2 is not None:
+      oprot.writeFieldBegin('column2', TType.STRING, 4)
+      oprot.writeString(self.column2)
+      oprot.writeFieldEnd()
+    if self.value2 is not None:
+      oprot.writeFieldBegin('value2', TType.STRING, 5)
+      oprot.writeString(self.value2)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def validate(self):
+    return
+
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)

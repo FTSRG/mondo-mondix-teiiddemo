@@ -23,12 +23,12 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print 'Usage: ' + sys.argv[0] + ' [-h host[:port]] [-u url] [-f[ramed]] function [arg1 [arg2...]]'
   print ''
   print 'Functions:'
-  print '  int performBinaryInsert(string relationName, string column1, string column2)'
-  print '  int performBinaryDelete(string relationName, string column1, string column2)'
-  print '  int performBinaryUpdate(string relationName, string old_column1, string old_column2, string new_column1, string new_column2)'
-  print '  int performUnaryInsert(string relationName, string column1)'
-  print '  int performUnaryDelete(string relationName, string column1)'
-  print '  int performUnaryUpdate(string relationName, string column1)'
+  print '  int performBinaryInsert(BinaryTuple tuple)'
+  print '  int performBinaryDelete(BinaryTuple tuple)'
+  print '  int performBinaryUpdate(BinaryTuple oldTuple, BinaryTuple newTuple)'
+  print '  int performUnaryInsert(UnaryTuple tuple)'
+  print '  int performUnaryDelete(UnaryTuple tuple)'
+  print '  int performUnaryUpdate(UnaryTuple oldTuple, UnaryTuple newTuple)'
   print ''
   sys.exit(0)
 
@@ -81,40 +81,40 @@ client = MondixTeiidChangeService.Client(protocol)
 transport.open()
 
 if cmd == 'performBinaryInsert':
-  if len(args) != 3:
-    print 'performBinaryInsert requires 3 args'
+  if len(args) != 1:
+    print 'performBinaryInsert requires 1 args'
     sys.exit(1)
-  pp.pprint(client.performBinaryInsert(args[0],args[1],args[2],))
+  pp.pprint(client.performBinaryInsert(eval(args[0]),))
 
 elif cmd == 'performBinaryDelete':
-  if len(args) != 3:
-    print 'performBinaryDelete requires 3 args'
+  if len(args) != 1:
+    print 'performBinaryDelete requires 1 args'
     sys.exit(1)
-  pp.pprint(client.performBinaryDelete(args[0],args[1],args[2],))
+  pp.pprint(client.performBinaryDelete(eval(args[0]),))
 
 elif cmd == 'performBinaryUpdate':
-  if len(args) != 5:
-    print 'performBinaryUpdate requires 5 args'
+  if len(args) != 2:
+    print 'performBinaryUpdate requires 2 args'
     sys.exit(1)
-  pp.pprint(client.performBinaryUpdate(args[0],args[1],args[2],args[3],args[4],))
+  pp.pprint(client.performBinaryUpdate(eval(args[0]),eval(args[1]),))
 
 elif cmd == 'performUnaryInsert':
-  if len(args) != 2:
-    print 'performUnaryInsert requires 2 args'
+  if len(args) != 1:
+    print 'performUnaryInsert requires 1 args'
     sys.exit(1)
-  pp.pprint(client.performUnaryInsert(args[0],args[1],))
+  pp.pprint(client.performUnaryInsert(eval(args[0]),))
 
 elif cmd == 'performUnaryDelete':
-  if len(args) != 2:
-    print 'performUnaryDelete requires 2 args'
+  if len(args) != 1:
+    print 'performUnaryDelete requires 1 args'
     sys.exit(1)
-  pp.pprint(client.performUnaryDelete(args[0],args[1],))
+  pp.pprint(client.performUnaryDelete(eval(args[0]),))
 
 elif cmd == 'performUnaryUpdate':
   if len(args) != 2:
     print 'performUnaryUpdate requires 2 args'
     sys.exit(1)
-  pp.pprint(client.performUnaryUpdate(args[0],args[1],))
+  pp.pprint(client.performUnaryUpdate(eval(args[0]),eval(args[1]),))
 
 else:
   print 'Unrecognized method %s' % cmd

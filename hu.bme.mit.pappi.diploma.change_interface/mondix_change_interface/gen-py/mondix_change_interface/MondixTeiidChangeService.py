@@ -18,56 +18,47 @@ except:
 
 
 class Iface:
-  def performBinaryInsert(self, relationName, column1, column2):
+  def performBinaryInsert(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
-     - column2
+     - tuple
     """
     pass
 
-  def performBinaryDelete(self, relationName, column1, column2):
+  def performBinaryDelete(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
-     - column2
+     - tuple
     """
     pass
 
-  def performBinaryUpdate(self, relationName, old_column1, old_column2, new_column1, new_column2):
+  def performBinaryUpdate(self, oldTuple, newTuple):
     """
     Parameters:
-     - relationName
-     - old_column1
-     - old_column2
-     - new_column1
-     - new_column2
+     - oldTuple
+     - newTuple
     """
     pass
 
-  def performUnaryInsert(self, relationName, column1):
+  def performUnaryInsert(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
+     - tuple
     """
     pass
 
-  def performUnaryDelete(self, relationName, column1):
+  def performUnaryDelete(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
+     - tuple
     """
     pass
 
-  def performUnaryUpdate(self, relationName, column1):
+  def performUnaryUpdate(self, oldTuple, newTuple):
     """
     Parameters:
-     - relationName
-     - column1
+     - oldTuple
+     - newTuple
     """
     pass
 
@@ -79,22 +70,18 @@ class Client(Iface):
       self._oprot = oprot
     self._seqid = 0
 
-  def performBinaryInsert(self, relationName, column1, column2):
+  def performBinaryInsert(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
-     - column2
+     - tuple
     """
-    self.send_performBinaryInsert(relationName, column1, column2)
+    self.send_performBinaryInsert(tuple)
     return self.recv_performBinaryInsert()
 
-  def send_performBinaryInsert(self, relationName, column1, column2):
+  def send_performBinaryInsert(self, tuple):
     self._oprot.writeMessageBegin('performBinaryInsert', TMessageType.CALL, self._seqid)
     args = performBinaryInsert_args()
-    args.relationName = relationName
-    args.column1 = column1
-    args.column2 = column2
+    args.tuple = tuple
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -113,22 +100,18 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "performBinaryInsert failed: unknown result");
 
-  def performBinaryDelete(self, relationName, column1, column2):
+  def performBinaryDelete(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
-     - column2
+     - tuple
     """
-    self.send_performBinaryDelete(relationName, column1, column2)
+    self.send_performBinaryDelete(tuple)
     return self.recv_performBinaryDelete()
 
-  def send_performBinaryDelete(self, relationName, column1, column2):
+  def send_performBinaryDelete(self, tuple):
     self._oprot.writeMessageBegin('performBinaryDelete', TMessageType.CALL, self._seqid)
     args = performBinaryDelete_args()
-    args.relationName = relationName
-    args.column1 = column1
-    args.column2 = column2
+    args.tuple = tuple
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -147,26 +130,20 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "performBinaryDelete failed: unknown result");
 
-  def performBinaryUpdate(self, relationName, old_column1, old_column2, new_column1, new_column2):
+  def performBinaryUpdate(self, oldTuple, newTuple):
     """
     Parameters:
-     - relationName
-     - old_column1
-     - old_column2
-     - new_column1
-     - new_column2
+     - oldTuple
+     - newTuple
     """
-    self.send_performBinaryUpdate(relationName, old_column1, old_column2, new_column1, new_column2)
+    self.send_performBinaryUpdate(oldTuple, newTuple)
     return self.recv_performBinaryUpdate()
 
-  def send_performBinaryUpdate(self, relationName, old_column1, old_column2, new_column1, new_column2):
+  def send_performBinaryUpdate(self, oldTuple, newTuple):
     self._oprot.writeMessageBegin('performBinaryUpdate', TMessageType.CALL, self._seqid)
     args = performBinaryUpdate_args()
-    args.relationName = relationName
-    args.old_column1 = old_column1
-    args.old_column2 = old_column2
-    args.new_column1 = new_column1
-    args.new_column2 = new_column2
+    args.oldTuple = oldTuple
+    args.newTuple = newTuple
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -185,20 +162,18 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "performBinaryUpdate failed: unknown result");
 
-  def performUnaryInsert(self, relationName, column1):
+  def performUnaryInsert(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
+     - tuple
     """
-    self.send_performUnaryInsert(relationName, column1)
+    self.send_performUnaryInsert(tuple)
     return self.recv_performUnaryInsert()
 
-  def send_performUnaryInsert(self, relationName, column1):
+  def send_performUnaryInsert(self, tuple):
     self._oprot.writeMessageBegin('performUnaryInsert', TMessageType.CALL, self._seqid)
     args = performUnaryInsert_args()
-    args.relationName = relationName
-    args.column1 = column1
+    args.tuple = tuple
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -217,20 +192,18 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "performUnaryInsert failed: unknown result");
 
-  def performUnaryDelete(self, relationName, column1):
+  def performUnaryDelete(self, tuple):
     """
     Parameters:
-     - relationName
-     - column1
+     - tuple
     """
-    self.send_performUnaryDelete(relationName, column1)
+    self.send_performUnaryDelete(tuple)
     return self.recv_performUnaryDelete()
 
-  def send_performUnaryDelete(self, relationName, column1):
+  def send_performUnaryDelete(self, tuple):
     self._oprot.writeMessageBegin('performUnaryDelete', TMessageType.CALL, self._seqid)
     args = performUnaryDelete_args()
-    args.relationName = relationName
-    args.column1 = column1
+    args.tuple = tuple
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -249,20 +222,20 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "performUnaryDelete failed: unknown result");
 
-  def performUnaryUpdate(self, relationName, column1):
+  def performUnaryUpdate(self, oldTuple, newTuple):
     """
     Parameters:
-     - relationName
-     - column1
+     - oldTuple
+     - newTuple
     """
-    self.send_performUnaryUpdate(relationName, column1)
+    self.send_performUnaryUpdate(oldTuple, newTuple)
     return self.recv_performUnaryUpdate()
 
-  def send_performUnaryUpdate(self, relationName, column1):
+  def send_performUnaryUpdate(self, oldTuple, newTuple):
     self._oprot.writeMessageBegin('performUnaryUpdate', TMessageType.CALL, self._seqid)
     args = performUnaryUpdate_args()
-    args.relationName = relationName
-    args.column1 = column1
+    args.oldTuple = oldTuple
+    args.newTuple = newTuple
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -313,7 +286,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = performBinaryInsert_result()
-    result.success = self._handler.performBinaryInsert(args.relationName, args.column1, args.column2)
+    result.success = self._handler.performBinaryInsert(args.tuple)
     oprot.writeMessageBegin("performBinaryInsert", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -324,7 +297,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = performBinaryDelete_result()
-    result.success = self._handler.performBinaryDelete(args.relationName, args.column1, args.column2)
+    result.success = self._handler.performBinaryDelete(args.tuple)
     oprot.writeMessageBegin("performBinaryDelete", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -335,7 +308,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = performBinaryUpdate_result()
-    result.success = self._handler.performBinaryUpdate(args.relationName, args.old_column1, args.old_column2, args.new_column1, args.new_column2)
+    result.success = self._handler.performBinaryUpdate(args.oldTuple, args.newTuple)
     oprot.writeMessageBegin("performBinaryUpdate", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -346,7 +319,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = performUnaryInsert_result()
-    result.success = self._handler.performUnaryInsert(args.relationName, args.column1)
+    result.success = self._handler.performUnaryInsert(args.tuple)
     oprot.writeMessageBegin("performUnaryInsert", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -357,7 +330,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = performUnaryDelete_result()
-    result.success = self._handler.performUnaryDelete(args.relationName, args.column1)
+    result.success = self._handler.performUnaryDelete(args.tuple)
     oprot.writeMessageBegin("performUnaryDelete", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -368,7 +341,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = performUnaryUpdate_result()
-    result.success = self._handler.performUnaryUpdate(args.relationName, args.column1)
+    result.success = self._handler.performUnaryUpdate(args.oldTuple, args.newTuple)
     oprot.writeMessageBegin("performUnaryUpdate", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -380,22 +353,16 @@ class Processor(Iface, TProcessor):
 class performBinaryInsert_args:
   """
   Attributes:
-   - relationName
-   - column1
-   - column2
+   - tuple
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'relationName', None, None, ), # 1
-    (2, TType.STRING, 'column1', None, None, ), # 2
-    (3, TType.STRING, 'column2', None, None, ), # 3
+    (1, TType.STRUCT, 'tuple', (BinaryTuple, BinaryTuple.thrift_spec), None, ), # 1
   )
 
-  def __init__(self, relationName=None, column1=None, column2=None,):
-    self.relationName = relationName
-    self.column1 = column1
-    self.column2 = column2
+  def __init__(self, tuple=None,):
+    self.tuple = tuple
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -407,18 +374,9 @@ class performBinaryInsert_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.STRING:
-          self.relationName = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 2:
-        if ftype == TType.STRING:
-          self.column1 = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 3:
-        if ftype == TType.STRING:
-          self.column2 = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.tuple = BinaryTuple()
+          self.tuple.read(iprot)
         else:
           iprot.skip(ftype)
       else:
@@ -431,17 +389,9 @@ class performBinaryInsert_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('performBinaryInsert_args')
-    if self.relationName is not None:
-      oprot.writeFieldBegin('relationName', TType.STRING, 1)
-      oprot.writeString(self.relationName)
-      oprot.writeFieldEnd()
-    if self.column1 is not None:
-      oprot.writeFieldBegin('column1', TType.STRING, 2)
-      oprot.writeString(self.column1)
-      oprot.writeFieldEnd()
-    if self.column2 is not None:
-      oprot.writeFieldBegin('column2', TType.STRING, 3)
-      oprot.writeString(self.column2)
+    if self.tuple is not None:
+      oprot.writeFieldBegin('tuple', TType.STRUCT, 1)
+      self.tuple.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -523,22 +473,16 @@ class performBinaryInsert_result:
 class performBinaryDelete_args:
   """
   Attributes:
-   - relationName
-   - column1
-   - column2
+   - tuple
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'relationName', None, None, ), # 1
-    (2, TType.STRING, 'column1', None, None, ), # 2
-    (3, TType.STRING, 'column2', None, None, ), # 3
+    (1, TType.STRUCT, 'tuple', (BinaryTuple, BinaryTuple.thrift_spec), None, ), # 1
   )
 
-  def __init__(self, relationName=None, column1=None, column2=None,):
-    self.relationName = relationName
-    self.column1 = column1
-    self.column2 = column2
+  def __init__(self, tuple=None,):
+    self.tuple = tuple
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -550,18 +494,9 @@ class performBinaryDelete_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.STRING:
-          self.relationName = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 2:
-        if ftype == TType.STRING:
-          self.column1 = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 3:
-        if ftype == TType.STRING:
-          self.column2 = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.tuple = BinaryTuple()
+          self.tuple.read(iprot)
         else:
           iprot.skip(ftype)
       else:
@@ -574,17 +509,9 @@ class performBinaryDelete_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('performBinaryDelete_args')
-    if self.relationName is not None:
-      oprot.writeFieldBegin('relationName', TType.STRING, 1)
-      oprot.writeString(self.relationName)
-      oprot.writeFieldEnd()
-    if self.column1 is not None:
-      oprot.writeFieldBegin('column1', TType.STRING, 2)
-      oprot.writeString(self.column1)
-      oprot.writeFieldEnd()
-    if self.column2 is not None:
-      oprot.writeFieldBegin('column2', TType.STRING, 3)
-      oprot.writeString(self.column2)
+    if self.tuple is not None:
+      oprot.writeFieldBegin('tuple', TType.STRUCT, 1)
+      self.tuple.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -666,28 +593,19 @@ class performBinaryDelete_result:
 class performBinaryUpdate_args:
   """
   Attributes:
-   - relationName
-   - old_column1
-   - old_column2
-   - new_column1
-   - new_column2
+   - oldTuple
+   - newTuple
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'relationName', None, None, ), # 1
-    (2, TType.STRING, 'old_column1', None, None, ), # 2
-    (3, TType.STRING, 'old_column2', None, None, ), # 3
-    (4, TType.STRING, 'new_column1', None, None, ), # 4
-    (5, TType.STRING, 'new_column2', None, None, ), # 5
+    (1, TType.STRUCT, 'oldTuple', (BinaryTuple, BinaryTuple.thrift_spec), None, ), # 1
+    (2, TType.STRUCT, 'newTuple', (BinaryTuple, BinaryTuple.thrift_spec), None, ), # 2
   )
 
-  def __init__(self, relationName=None, old_column1=None, old_column2=None, new_column1=None, new_column2=None,):
-    self.relationName = relationName
-    self.old_column1 = old_column1
-    self.old_column2 = old_column2
-    self.new_column1 = new_column1
-    self.new_column2 = new_column2
+  def __init__(self, oldTuple=None, newTuple=None,):
+    self.oldTuple = oldTuple
+    self.newTuple = newTuple
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -699,28 +617,15 @@ class performBinaryUpdate_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.STRING:
-          self.relationName = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.oldTuple = BinaryTuple()
+          self.oldTuple.read(iprot)
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.STRING:
-          self.old_column1 = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 3:
-        if ftype == TType.STRING:
-          self.old_column2 = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 4:
-        if ftype == TType.STRING:
-          self.new_column1 = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 5:
-        if ftype == TType.STRING:
-          self.new_column2 = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.newTuple = BinaryTuple()
+          self.newTuple.read(iprot)
         else:
           iprot.skip(ftype)
       else:
@@ -733,25 +638,13 @@ class performBinaryUpdate_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('performBinaryUpdate_args')
-    if self.relationName is not None:
-      oprot.writeFieldBegin('relationName', TType.STRING, 1)
-      oprot.writeString(self.relationName)
+    if self.oldTuple is not None:
+      oprot.writeFieldBegin('oldTuple', TType.STRUCT, 1)
+      self.oldTuple.write(oprot)
       oprot.writeFieldEnd()
-    if self.old_column1 is not None:
-      oprot.writeFieldBegin('old_column1', TType.STRING, 2)
-      oprot.writeString(self.old_column1)
-      oprot.writeFieldEnd()
-    if self.old_column2 is not None:
-      oprot.writeFieldBegin('old_column2', TType.STRING, 3)
-      oprot.writeString(self.old_column2)
-      oprot.writeFieldEnd()
-    if self.new_column1 is not None:
-      oprot.writeFieldBegin('new_column1', TType.STRING, 4)
-      oprot.writeString(self.new_column1)
-      oprot.writeFieldEnd()
-    if self.new_column2 is not None:
-      oprot.writeFieldBegin('new_column2', TType.STRING, 5)
-      oprot.writeString(self.new_column2)
+    if self.newTuple is not None:
+      oprot.writeFieldBegin('newTuple', TType.STRUCT, 2)
+      self.newTuple.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -833,19 +726,16 @@ class performBinaryUpdate_result:
 class performUnaryInsert_args:
   """
   Attributes:
-   - relationName
-   - column1
+   - tuple
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'relationName', None, None, ), # 1
-    (2, TType.STRING, 'column1', None, None, ), # 2
+    (1, TType.STRUCT, 'tuple', (UnaryTuple, UnaryTuple.thrift_spec), None, ), # 1
   )
 
-  def __init__(self, relationName=None, column1=None,):
-    self.relationName = relationName
-    self.column1 = column1
+  def __init__(self, tuple=None,):
+    self.tuple = tuple
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -857,13 +747,9 @@ class performUnaryInsert_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.STRING:
-          self.relationName = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 2:
-        if ftype == TType.STRING:
-          self.column1 = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.tuple = UnaryTuple()
+          self.tuple.read(iprot)
         else:
           iprot.skip(ftype)
       else:
@@ -876,13 +762,9 @@ class performUnaryInsert_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('performUnaryInsert_args')
-    if self.relationName is not None:
-      oprot.writeFieldBegin('relationName', TType.STRING, 1)
-      oprot.writeString(self.relationName)
-      oprot.writeFieldEnd()
-    if self.column1 is not None:
-      oprot.writeFieldBegin('column1', TType.STRING, 2)
-      oprot.writeString(self.column1)
+    if self.tuple is not None:
+      oprot.writeFieldBegin('tuple', TType.STRUCT, 1)
+      self.tuple.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -964,19 +846,16 @@ class performUnaryInsert_result:
 class performUnaryDelete_args:
   """
   Attributes:
-   - relationName
-   - column1
+   - tuple
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'relationName', None, None, ), # 1
-    (2, TType.STRING, 'column1', None, None, ), # 2
+    (1, TType.STRUCT, 'tuple', (UnaryTuple, UnaryTuple.thrift_spec), None, ), # 1
   )
 
-  def __init__(self, relationName=None, column1=None,):
-    self.relationName = relationName
-    self.column1 = column1
+  def __init__(self, tuple=None,):
+    self.tuple = tuple
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -988,13 +867,9 @@ class performUnaryDelete_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.STRING:
-          self.relationName = iprot.readString();
-        else:
-          iprot.skip(ftype)
-      elif fid == 2:
-        if ftype == TType.STRING:
-          self.column1 = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.tuple = UnaryTuple()
+          self.tuple.read(iprot)
         else:
           iprot.skip(ftype)
       else:
@@ -1007,13 +882,9 @@ class performUnaryDelete_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('performUnaryDelete_args')
-    if self.relationName is not None:
-      oprot.writeFieldBegin('relationName', TType.STRING, 1)
-      oprot.writeString(self.relationName)
-      oprot.writeFieldEnd()
-    if self.column1 is not None:
-      oprot.writeFieldBegin('column1', TType.STRING, 2)
-      oprot.writeString(self.column1)
+    if self.tuple is not None:
+      oprot.writeFieldBegin('tuple', TType.STRUCT, 1)
+      self.tuple.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1095,19 +966,19 @@ class performUnaryDelete_result:
 class performUnaryUpdate_args:
   """
   Attributes:
-   - relationName
-   - column1
+   - oldTuple
+   - newTuple
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'relationName', None, None, ), # 1
-    (2, TType.STRING, 'column1', None, None, ), # 2
+    (1, TType.STRUCT, 'oldTuple', (UnaryTuple, UnaryTuple.thrift_spec), None, ), # 1
+    (2, TType.STRUCT, 'newTuple', (UnaryTuple, UnaryTuple.thrift_spec), None, ), # 2
   )
 
-  def __init__(self, relationName=None, column1=None,):
-    self.relationName = relationName
-    self.column1 = column1
+  def __init__(self, oldTuple=None, newTuple=None,):
+    self.oldTuple = oldTuple
+    self.newTuple = newTuple
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -1119,13 +990,15 @@ class performUnaryUpdate_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.STRING:
-          self.relationName = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.oldTuple = UnaryTuple()
+          self.oldTuple.read(iprot)
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.STRING:
-          self.column1 = iprot.readString();
+        if ftype == TType.STRUCT:
+          self.newTuple = UnaryTuple()
+          self.newTuple.read(iprot)
         else:
           iprot.skip(ftype)
       else:
@@ -1138,13 +1011,13 @@ class performUnaryUpdate_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('performUnaryUpdate_args')
-    if self.relationName is not None:
-      oprot.writeFieldBegin('relationName', TType.STRING, 1)
-      oprot.writeString(self.relationName)
+    if self.oldTuple is not None:
+      oprot.writeFieldBegin('oldTuple', TType.STRUCT, 1)
+      self.oldTuple.write(oprot)
       oprot.writeFieldEnd()
-    if self.column1 is not None:
-      oprot.writeFieldBegin('column1', TType.STRING, 2)
-      oprot.writeString(self.column1)
+    if self.newTuple is not None:
+      oprot.writeFieldBegin('newTuple', TType.STRUCT, 2)
+      self.newTuple.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
