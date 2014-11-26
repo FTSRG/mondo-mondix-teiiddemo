@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>hu.bme.mit.pappi.diploma.teiid_change_server</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>mondix_change_interface</name>
+			<type>2</type>
+			<location>/home/pappi/git/mondo-mondix-teiiddemo/hu.bme.mit.pappi.diploma.change_interface/mondix_change_interface/gen-java</location>
+		</link>
+		<link>
+			<name>teiid_change_interface</name>
+			<type>2</type>
+			<location>/home/pappi/git/mondo-mondix-teiiddemo/hu.bme.mit.pappi.diploma.change_interface/teiid_change_interface/gen-java</location>
+		</link>
+	</linkedResources>
+</projectDescription>
