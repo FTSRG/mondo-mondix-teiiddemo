@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo.tests</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.ManifestBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.SchemaBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.pde.PluginNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>mondix-change-interface</name>
+			<type>2</type>
+			<location>/home/pappi/git/mondo-mondix-teiiddemo/hu.bme.mit.pappi.diploma.change_interface/mondix_change_interface/gen-java</location>
+		</link>
+	</linkedResources>
+</projectDescription>

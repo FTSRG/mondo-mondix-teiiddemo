@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="mondix-change-interface"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/aspectjrt-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/libthrift-0.9.1.jar"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/slf4j-simple-1.7.7.jar"/>
+	<classpathentry kind="lib" path="/hu.bme.mit.pappi.diploma.mondo_mondix_teiiddemo/lib/teiid-8.8.1-jdbc.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-server-standalone-2.43.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
